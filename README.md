@@ -1,2 +1,3 @@
 # LaTeX
-Learn LaTeX 
+
+My Class Materials 
