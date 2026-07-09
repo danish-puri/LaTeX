@@ -1,0 +1,68 @@
+% Generate table of content 
+% Sections in LaTeX
+% Jul 9 2026 
+\documentclass[]{article}
+
+\title{My First \LaTeX\ doc}
+\author{Danish Puri}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\vspace{1 cm}
+
+\section{Algebra}
+The relationship between three sides of a triangle is $a^2 +b^2 = c^2$. \\
+\vspace{1 cm }
+The relationship between three sides of a triangle is $$a^2 +b^2 = c^2$$
+
+
+\subsection{Superscript}:
+    $$x^2$$
+    $$x^12$$ %We do NOT want this 
+    $$x^{23}$$ %This is better 
+    $$x^{5x^{2^4}}$$
+
+\subsection{SubScript}:
+    $$x_1$$
+    $$x_12$$ %We do NOT want this 
+    $$x_{12}$$ %This is better
+    $$x_{a_0}$$
+    $$a_0, a_1, a_2, a_3 ... a_{100} $$
+       $$a_0, a_1, a_2, a_3 \ldots a_{100} $$
+
+\subsection{Fractions}
+    $$\frac{2}{3}$$
+    $$\frac{2x^2+3}{x^3+5}$$
+    $$\frac{1}{1+\frac{1}{x}}$$
+
+\subsection{Trig}
+    $$ y = sin x$$ %Do not use this
+    $$y = \sin x$$ %Use this
+    $$y = \sin \theta$$
+    $$y = \cos \theta$$
+    $$ y = \sin ^{-1} \theta$$ %Do NOT use this
+    $$ y = \arcsin \theta $$ %Use this 
+
+%I want to demostrace how to use \tableofcontents so i want many sections and subsections
+\section{Polynomial}
+\subsection{Linear}
+\subsection{Quadratic}
+\subsection{Cubic}
+\section{Calculus}
+    \subsection{Limits}
+    \subsection{Derivative}
+    \subsubsection{Chain Rule}
+    \subsubsection{Application of Derivatives}
+    \subsection{Integration}
+    \subsubsection{Integration by parts}
+    \subsubsection{Trig Substituion}
+    \subsubsection{Application of Anti derivatives}
+    \subsection{Differential Equations}
+    \subsection{Multi Variable Calculus}
+    
+    
+
+\section{Linear Algebra}
+\end{document}
