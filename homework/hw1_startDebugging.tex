@@ -1,9 +1,11 @@
+%Homework 1 
+%The file will not compile. Your job is to find the errors and fix them so it produces a clean PDF. Bring your working version to class.
 
 \documentclass[12pt]{article}
 
 \usepackage{enumerate}
 
-\title{Intro to \LaTeX{}\\[4pt] \large A Beginner Guide for Students}
+\title{Intro to \LaTeX{}\\[4pt] \large Intro to \LateX}
 \author{Danish Puri\\ }
 \date{\today}
 
@@ -11,37 +13,40 @@
 
 \maketitle
 
-\tableofcontents
+\tableofcontent %There is a missing letter here 
 \pagebreak
 
 \section{Math}
 
-\LaTeX{} is famous for math. You write math inside math mode. This section shows the basics.
+\LaTeX{} (% Think why do we need {}) 
+is famous for math. You write math inside math mode. This section shows the basics.
 
 \subsection{Math Modes}
-
-\subsubsection{Inline Math Mode ($)}
+% Think what $ sign does 
+\subsubsection{Inline Math Mode (\$)}
 Inline math sits inside a sentence. You wrap the math with one dollar sign on each side.
 
 The relationship between three sides of a right angle triangle is a^2+b^2=c^2.
+%Can we use $$ for the math equation?
 
 \subsubsection{Display Math Mode}
 Display math sits on its own line. \LaTeX{} centers it. You wrap the math with two dollar signs on each side.
 
 The relationship between three sides of a right angle triangle is
 $$a^2+b^2=c^2
+%So, I opned the env \$\$. Is it closed? 
 
 \subsection{Superscript}
 The caret symbol \verb|^| makes a superscript. Braces \verb|{ }| group more than one character.
 $$x^2$$
-$$x^{31}$$
+$$x^31$$ %Does this complile? if yes, does it produce what we want?
 $$3x^{x^2+5x+2}$$
 $$7x^2^3^4$$
 
 \subsection{Subscript}
 The underscore \verb|_| makes a subscript. Braces group more than one character.
 $$a_0$$
-$$a_{12}$$
+$$a_12$$ %Does this complile? if yes, does it produce what we want?
 $$a_{0_{1_{2_{3}}}}$$
 The command \verb|\ldots| prints clean dots.
 $$a_0, a_1, a_2, a_3 \ldots a_{100}$$
@@ -51,7 +56,7 @@ $$a_0, a_1, a_2, a_3 \ldots a_{100}$$
 \subsubsection{Greek Symbols}
 Greek letters need math mode. A capital first letter gives the capital form.
 \begin{itemize}
-    \item \alpha
+    \item \alpha  %Does this complite despite not being in a math ($) env? 
     \item $\beta}
     \item $\gamma$
     \item $\rho$
@@ -66,7 +71,8 @@ Greek letters need math mode. A capital first letter gives the capital form.
 
 \subsubsection{Trigonometry Symbols}
 \LaTeX{} has commands for trig functions. The commands print upright letters.
-$$y = \sin (x)$$
+$$ y = sin (x) $$ %does laTeX understand sin?
+$$y = \sin (x)$$ %Notice \sin and sin are different 
 $$y = \cos (x)$$
 $$y = \tan \theta$$
 Some books write the inverse like this.
@@ -110,8 +116,8 @@ You can replace a bullet. Put your own label inside square brackets.
 
 \subsection{Numbered Lists}
 The \verb|enumerate| package allows Roman numerals. You can also nest a list inside a list.
-\begin{enumerate}[I.]
-    \item Argentina
+\begin{enumerate}[I.] %What package is requried? 
+    \item Argentinas
         \begin{enumerate}
             \item Messi
             \item Martinez
@@ -251,6 +257,8 @@ The command \verb|\ref{fig:first}| prints the figure number inside your text.
 The command \verb|\tableofcontents| collects every heading. It prints them at the start with page numbers. Compile the document twice. The first run collects the headings. The second run prints the table.
 
 The next two sections show this structure in action. Find them in the table of contents at the start of this guide.
+
+%You can ignore the rest of doocument. We did not cover symbols for limits, integation.. in class. Pherhaps, watch world up :) 
 
 \section{Polynomials}
 A polynomial is a sum of powers of $x$. The degree is the highest power.
