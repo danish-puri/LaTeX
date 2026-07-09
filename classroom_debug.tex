@@ -1,0 +1,309 @@
+
+\documentclass[12pt]{article}
+
+\usepackage{enumerate}
+
+\title{Intro to \LaTeX{}\\[4pt] \large A Beginner Guide for Students}
+\author{Danish Puri\\ }
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\pagebreak
+
+\section{Math}
+
+\LaTeX{} is famous for math. You write math inside math mode. This section shows the basics.
+
+\subsection{Math Modes}
+
+\subsubsection{Inline Math Mode ($)}
+Inline math sits inside a sentence. You wrap the math with one dollar sign on each side.
+
+The relationship between three sides of a right angle triangle is a^2+b^2=c^2.
+
+\subsubsection{Display Math Mode}
+Display math sits on its own line. \LaTeX{} centers it. You wrap the math with two dollar signs on each side.
+
+The relationship between three sides of a right angle triangle is
+$$a^2+b^2=c^2
+
+\subsection{Superscript}
+The caret symbol \verb|^| makes a superscript. Braces \verb|{ }| group more than one character.
+$$x^2$$
+$$x^{31}$$
+$$3x^{x^2+5x+2}$$
+$$7x^2^3^4$$
+
+\subsection{Subscript}
+The underscore \verb|_| makes a subscript. Braces group more than one character.
+$$a_0$$
+$$a_{12}$$
+$$a_{0_{1_{2_{3}}}}$$
+The command \verb|\ldots| prints clean dots.
+$$a_0, a_1, a_2, a_3 \ldots a_{100}$$
+
+\subsection{Symbols}
+
+\subsubsection{Greek Symbols}
+Greek letters need math mode. A capital first letter gives the capital form.
+\begin{itemize}
+    \item \alpha
+    \item $\beta}
+    \item $\gamma$
+    \item $\rho$
+    \item $\sigma$
+    \item $\delta$
+    \item $\epsilon$
+    \item $\chi$
+    \item $\pi$
+    \item $\Pi$
+    \item $Area = \pi r^2$
+\end{itemize}
+
+\subsubsection{Trigonometry Symbols}
+\LaTeX{} has commands for trig functions. The commands print upright letters.
+$$y = \sin (x)$$
+$$y = \cos (x)$$
+$$y = \tan \theta$$
+Some books write the inverse like this.
+$$y = \sin^{-1} \theta$$
+The command \verb|\arcsin| is clearer. Use it instead.
+$$y = \arcsin \theta$$
+
+\subsection{Algebraic Symbols}
+\begin{itemize}
+    \item $\times$
+    \item $\div$
+    \item \frac{2}{3}
+    \item $\frac{\sin \theta}{\cos \theta} = \tan \theta$
+    \item $\frac{3x+5}{7x^2+6x+4}$
+    \item $\sqrt{5}$
+    \item $\sqrt[3]{9}$
+    \item $\sqrt[5]{x^2+y^2}$
+    \item $\sqrt{5 +\sqrt{x^2+y^2}}$
+    \item $\sqrt{\sqrt{\sqrt{\sqrt{\sqrt{\sqrt{2}}}}}}$
+\end{itemize}
+
+\subsubsection{Other Symbols}
+These symbols appear a lot in calculus and statistics.
+$$\int \qquad \oint \qquad \sum \qquad \prod$$
+
+\section{Lists}
+\LaTeX{} has two common list types. The \verb|itemize| environment makes bullet lists. The \verb|enumerate| environment makes numbered lists. Me & you can use both.
+
+\subsection{Bullet Lists with Custom Labels}
+You can replace a bullet. Put your own label inside square brackets.
+\begin{itemize}
+    \item[1] Argentina
+    \item[2] Switzerland
+    \item[3] Morocco
+    \item[4] France
+    \item Spain
+    \item Belgium
+    \item Portugal
+    \item England
+\end{enumerate}
+
+\subsection{Numbered Lists}
+The \verb|enumerate| package allows Roman numerals. You can also nest a list inside a list.
+\begin{enumerate}[I.]
+    \item Argentina
+        \begin{enumerate}
+            \item Messi
+            \item Martinez
+            \item Lopez
+        \end{enumerate}
+    \item Switzerland
+    \item Morocco
+    \item France
+    \item Spain
+    \item Belgium
+    \item Portugal
+    \item England
+\end{enumerate}
+
+\subsection{More Custom Labels}
+Empty brackets hide the label. Math symbols also work as labels.
+\begin{enumerate}
+    \item[-] Argentina
+        \begin{enumerate}
+            \item Messi
+            \item Martinez
+            \item Lopez
+        \end{enumerate}
+    \item[-] Switzerland
+    \item[*] Morocco
+    \item[*] France
+    \item[] Spain
+    \item[$\to$] Belgium
+    \item[=] Portugal
+    \item[] England
+\end{enumerate}
+
+\pagebreak
+
+\section{Tables}
+The \verb|tabular| environment builds a table. The letters \verb|l|, \verb|c| and \verb|r| set the column alignment. The bar \verb!|! draws a vertical line. The symbol \verb|&| separates cells. The command \verb|\\| ends a row. The command \verb|\hline| draws a horizontal line.
+
+\subsection{A Table with a Caption}
+The \verb|table| environment wraps the tabular. It adds a caption and a label. The option \verb|[h]| asks \LaTeX{} to place the table here.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+    \hline
+    Country & Player & Goals \\
+    \hline
+    Argentina & Lionel Messi  & 8 \\
+    Norway    & Erling Haaland & 7 \\
+    France    & Kylian Mbappe & 7 
+    England   & Harry Kane    & 7 \\
+    \hline
+    \end{tabular}
+    \caption{Top scorers in the FIFA World Cup 2026 (sample data)}
+    \label{tab:topscorers}
+\end{table}
+
+The command \verb|\ref| prints the table number. Table \ref{tab:topscorers} shows sample data.
+
+\subsection{A Plain Tabular}
+A tabular without the table wrapper has no caption and no number. A double \verb|\hline| draws a double line.
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+Country & Player & Goals \\
+\hline \hline
+Argentina & Lionel Messi  & 8 \\
+Norway    & Erling Haaland & 7 \\
+France    & Kylian Mbappe & 7 \\
+England   & Harry Kane    & 7 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Text Formatting}
+
+\subsection{Bold}
+This is a textbf{bold} text.
+
+\subsection{Italics}
+This is an \textit{italicized} text.
+
+\subsection{Nested Styles}
+This text is \textbf{\textit{bold and italicized}}.
+
+\subsection{Underline}
+This text is \underline{underlined.
+
+\subsection{Font Sizes}
+\LaTeX{} has size commands. They run from \verb|\tiny| to \verb|\Huge|.
+
+This is a \begin{huge}huge\end{huge} word.
+
+This is a \begin{Huge}Huge\end{Huge} word.
+
+\subsection{Links}
+The \verb|hyperref| package makes clickable links. The command \verb|\href| takes two parts. The first part is the address. The second part is the visible text.
+
+Today's notes live at \href{https://github.com/danish-puri/LaTeX}{this GitHub page}.
+
+The command \verb|\url| shows the raw address instead. See \url{https://github.com/danish-puri/LaTeX}.
+
+\section{Graphics}
+Images need the \verb|graphicx| package. This guide already loads it in the preamble.
+
+\subsection{Step 1: Add the Image File}
+Upload your image to your project folder. Overleaf has an upload button on the top left. Keep the image next to your \verb|.tex| file. Let the image be \verb|img.jpg|.
+
+\subsection{Step 2: Insert the Image}
+The command below inserts the image. Remove the percent sign after you upload \verb|img.jpg|.
+
+\includegraphics[width=0.5\textwidth]{img.jpg}
+
+The option \verb|width=0.5\textwidth| makes the image half as wide as the text. A fixed size like \verb|width=5cm| also works. The option \verb|scale=0.5| shrinks the image to half size. The option \verb|angle=90| rotates it.
+
+\subsection{Step 3: Use the Figure Environment}
+The \verb|figure| environment adds a caption and a number. It also lets you refer to the image later. Remove the percent signs after you upload the image.
+
+\begin{figure}[h]
+     \centering
+     \includegraphics[width=0.5\textwidth]{img.jpg}
+     \caption{My first image in LaTeX}
+     \label{fig:first}
+\end{figure}
+
+The command \verb|\ref{fig:first}| prints the figure number inside your text.
+
+\section{Sectioning and the Table of Contents}
+\LaTeX{} builds structure with sectioning commands. Each command makes a heading at a different level.
+
+\begin{itemize}
+    \item \verb|\section| makes a main heading.
+    \item \verb|\subsection| makes a heading one level down.
+    \item \verb|\subsubsection| goes one more level down.
+\end{itemize}
+
+The command \verb|\tableofcontents| collects every heading. It prints them at the start with page numbers. Compile the document twice. The first run collects the headings. The second run prints the table.
+
+The next two sections show this structure in action. Find them in the table of contents at the start of this guide.
+
+\section{Polynomials}
+A polynomial is a sum of powers of $x$. The degree is the highest power.
+
+\subsection{Linear}
+A linear polynomial has degree one. Its graph is a straight line.
+$$y = mx + c$$
+Here $m$ is the slope and $c$ is the intercept.
+
+\subsection{Quadratic}
+A quadratic polynomial has degree two. Its graph is a parabola.
+$$y = ax^2 + bx + c$$
+The quadratic formula gives the roots.
+$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+\subsection{Cubic}
+A cubic polynomial has degree three.
+$$y = ax^3 + bx^2 + cx + d$$
+
+\section{Calculus}
+
+\subsection{Limits}
+The command \verb|\lim| prints the limit symbol. The arrow uses \verb|\to|.
+$$\lim_{x \to 0} \frac{\sin x}{x} = 1$$
+
+\subsection{Derivative}
+The derivative measures the rate of change.
+$$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
+The power rule is the most common rule.
+\frac{d}{dx} x^n = n x^{n-1}
+
+\subsection{Integration}
+The command \verb|\int| prints the integral sign. The limits use subscript and superscript.
+$$\int x^2 \, dx = \frac{x^3}{3} + C$$
+$$\int_0^1 x^2 \, dx = \frac{1}{3}$$
+
+\subsection{Differential Equations}
+A differential equation contains a function and its derivatives.
+
+\subsubsection{First Order Differential Equations}
+A first order equation contains the first derivative only.
+$$\frac{dy}{dx} + P(x)\,y = Q(x)$$
+
+\subsubsection{Second Order Differential Equations}
+A second order equation contains the second derivative.
+$$a\,\frac{d^2y}{dx^2} + b\,\frac{dy}{dx} + c\,y = 0$$
+
+\section{Where to Go Next}
+Practice is the best teacher. Rebuild your last assignment in \LaTeX{}. Use this guide as your reference.
+
+These free resources will help you go further.
+\begin{itemize}
+    \item Overleaf documentation: \url{https://www.overleaf.com/learn}
+\end{itemize}
+
+\end{docment}
