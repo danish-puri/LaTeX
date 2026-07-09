@@ -1,0 +1,110 @@
+%Lec 1 
+%First LaTeX Doc, lists, tables
+%09 July 2026
+\documentclass[11pt]{article}
+\title{My First \LaTeX\ Document}
+\author{Danish Puri}
+\date {\today}
+\usepackage{enumerate}
+\begin{document}
+\maketitle
+    Hello World! This is my first \LaTeX\ file. 
+\vspace{1cm}
+%We want a list
+\begin{itemize}
+    \item Argentina 
+    \item France 
+    \item Morocco 
+    \item Switzerland
+    \item Norway
+    \item Belgium 
+    \item Spain 
+    \item England
+\end{itemize}
+\vspace{1cm}
+
+%We want a numbered list 
+\begin{enumerate}[I.]
+    \item Argentina 
+    \begin{enumerate}
+        \item [i] Messi 
+        \item [ii] Martinez 
+        \item [iii] Lopez 
+    \end{enumerate}
+    \item France 
+    \item Morocco 
+    \item Switzerland
+    \item Norway
+    \item Belgium 
+    \item Spain 
+    \item England
+\end{enumerate}
+
+%This is a commend and is ignored by the complier 
+
+%Tables 
+\pagebreak
+\begin{tabular}{|c|c|}
+    \hline
+    Player & Goals \\
+    \hline \hline
+    Messi & 8 \\
+    Mbappe &7 \\
+    Haaland & 7 \\
+    Kane & 6 \\
+    \hline 
+\end{tabular}
+
+%Tablur vs Table
+\begin{table}[]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+        Players & Goals \\
+        \hline
+         Messi & 8 \\ 
+         Haaland &7 \\
+         Mbappe & 7 \\
+         Kane &6\\
+         \hline
+    \end{tabular}
+    \caption{Golden Goal }
+    \label{tab:placeholder}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|l|}
+    \hline
+        Players & Goals \\
+        \hline
+         Messi & 8 \\ 
+         Haaland &7 \\
+         Mbappe & 7 \\
+         Kane &6\\
+         \hline
+    \end{tabular}
+    \caption{Golden Goal }
+    \label{tab:placeholder}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|}
+    \hline
+        Players & Goals \\
+        \hline
+         Messi & 8 \\ 
+         Haaland &7 \\
+         Mbappe & 7 \\
+         Kane &6\\
+         \hline
+    \end{tabular}
+    \caption{Golden Goal }
+    \label{tab:placeholder}
+\end{table}
+ 
+
+
+\end{document}
+
