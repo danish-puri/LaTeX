@@ -86,6 +86,32 @@ You do not need to install anything to begin. The fastest way to write LaTeX is 
 
 Later in the course we'll talk about installing LaTeX on your own computer (TeX Live or MiKTeX), but Overleaf is all you need to follow along.
 
+
+## AI and LaTeX
+
+LLMs like ChatGPT and Claude have seen millions of `.tex` files, so they are often good at it, but the output is not always correct and copying it blindly has real costs. 
+### Using LLMs Effectively
+
+- **Be specific about what you want.** "Write a table" gives you a random table. "Write a LaTeX table with 3 columns, centered, with a caption and a label, using th
+e `booktabs` package" gives you something you can actually use. Name the document class, the packages, and the layout you want.
+- **Always compile the output before trusting it.** If the code does not compile, paste the error message back into the chat and ask for a fix. Never assume generat
+ed code works just because it looks plausible.
+- **Use it to explain, not just to generate.** Paste in LaTeX code you found online or a confusing compile error and ask "what does this do?" or "why is this breaki
+ng?". I think this is the best feature in LLMs. This is where an LLM saves you the most time, and you learn something instead of just copying.
+- **Learn the basics so you can check its work.** If you cannot read the code an LLM gives you, you cannot spot when it silently does the wrong thing. That is exact
+ly what this course is for.
+
+### Where LLMs Fall Short
+
+- **They invent commands and packages.** LLMs sometimes generate `\usepackage` lines or commands that simply do not exist, and the code looks perfectly reasonable u
+ntil Overleaf throws an error you do not understand.
+- **They produce outdated LaTeX.** Because they are trained on decades of old code, they may suggest deprecated practices like `\bf` instead of `\textbf{}` or the o
+bsolete `eqnarray` environment instead of `align`. The document compiles, but you pick up bad habits.
+- **Overcomplicated output.** LLMs often load five packages and write twenty lines where one standard command would do. Bloated preambles cause package conflicts th
+at are painful to debug, especially for a beginner.
+- **You skip the learning.** If an LLM writes every document for you, you will freeze the first time you must write or fix LaTeX without it, for example during a ti
+med exam, a defense, or a collaboration where you edit someone else's file. The point of this course is that you understand the code, and write good LaTeX code. 
+
 ## Questions
 Have a question? Open an issue in this repository, or just ask in class. In class, do *not* hesitate to interrupt me. If you are wondering about something, chances are someone else is too, and the whole class benefits when you ask.
 
