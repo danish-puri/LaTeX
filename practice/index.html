@@ -1,0 +1,3032 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LaTeX Practice Lab</title>
+<meta name="description" content="A hands-on practice lab for the Intro to LaTeX course by Danish Puri. Learn LaTeX by typing it, from your first equation to a full research paper.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<style>
+:root{
+  --accent:#1F6FB2; --accent-soft:#e7f0f8; --accent-ink:#175a92;
+  --bg:#f4f6f9; --panel:#ffffff; --panel2:#f8fafc;
+  --ink:#1c2733; --ink2:#51606e; --ink3:#8494a3;
+  --line:#dde4ec; --line2:#ccd6e0;
+  --good:#177245; --good-bg:#e9f6ee;
+  --bad:#b3261e; --bad-bg:#fbeeed;
+  --warn:#8a6100; --warn-bg:#fdf6e3;
+  --code-bg:#f1f4f8;
+  --ed-bg:#0f172a; --ed-ink:#e2e8f0;
+  --shadow:0 1px 3px rgba(16,24,40,.08),0 8px 24px rgba(16,24,40,.06);
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --accent:#5aa1dc; --accent-soft:#14283a; --accent-ink:#8fc1e8;
+  --bg:#0e141b; --panel:#161e27; --panel2:#1b242f;
+  --ink:#dbe4ee; --ink2:#9fb0c0; --ink3:#6e8090;
+  --line:#273240; --line2:#33404f;
+  --good:#4ec585; --good-bg:#12271c;
+  --bad:#f0837c; --bad-bg:#331a18;
+  --warn:#e2b93f; --warn-bg:#2d2510;
+  --code-bg:#1d2833;
+  --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]):not([data-theme="dark"]){
+    --accent:#5aa1dc; --accent-soft:#14283a; --accent-ink:#8fc1e8;
+    --bg:#0e141b; --panel:#161e27; --panel2:#1b242f;
+    --ink:#dbe4ee; --ink2:#9fb0c0; --ink3:#6e8090;
+    --line:#273240; --line2:#33404f;
+    --good:#4ec585; --good-bg:#12271c;
+    --bad:#f0837c; --bad-bg:#331a18;
+    --warn:#e2b93f; --warn-bg:#2d2510;
+    --code-bg:#1d2833;
+    --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+code,pre,textarea.ed,.mono{font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;}
+a{color:var(--accent)}
+h1,h2,h3,h4{line-height:1.25}
+button{font:inherit;cursor:pointer}
+
+/* ---------- header ---------- */
+header.top{position:sticky;top:0;z-index:40;background:var(--panel);border-bottom:1px solid var(--line);box-shadow:0 1px 2px rgba(16,24,40,.05)}
+.top-inner{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink)}
+.brand .logo{font-family:Georgia,"Times New Roman",serif;font-size:24px;font-weight:700;white-space:nowrap}
+.brand .logo .tex{color:var(--accent)}
+.brand small{color:var(--ink3);font-size:12.5px;white-space:nowrap}
+.top-spacer{flex:1}
+.progress-wrap{display:flex;align-items:center;gap:10px;min-width:200px;flex:1;max-width:380px}
+.progress-track{flex:1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.progress-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--accent),#3fa66b);transition:width .5s ease}
+.progress-label{font-size:12.5px;color:var(--ink2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.iconbtn{border:1px solid var(--line2);background:var(--panel);color:var(--ink2);border-radius:8px;padding:5px 10px;font-size:13px}
+.iconbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- layout ---------- */
+.layout{max-width:1240px;margin:0 auto;padding:22px 20px 60px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:26px;align-items:start}
+nav.side{position:sticky;top:66px;max-height:calc(100vh - 90px);overflow:auto;padding-right:4px}
+nav.side .part-label{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin:16px 0 6px 10px}
+nav.side .part-label:first-child{margin-top:2px}
+nav.side a.lesson-link{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;text-decoration:none;color:var(--ink2);font-size:14px;line-height:1.3}
+nav.side a.lesson-link:hover{background:var(--panel);color:var(--ink)}
+nav.side a.lesson-link.active{background:var(--accent-soft);color:var(--accent-ink);font-weight:600}
+.lnum{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--line2);color:var(--ink3);display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;background:var(--panel)}
+a.lesson-link.active .lnum{border-color:var(--accent);color:var(--accent)}
+a.lesson-link.all-done .lnum{background:var(--good);border-color:var(--good);color:#fff}
+.ldots{margin-left:auto;font-size:10px;color:var(--ink3);letter-spacing:1px;white-space:nowrap}
+
+main#main{min-width:0}
+
+/* ---------- lesson body ---------- */
+.lesson-head h2{margin:2px 0 4px;font-size:27px}
+.lesson-head .kicker{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lesson-head p.lede{color:var(--ink2);margin:6px 0 0;max-width:70ch}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:18px 0;box-shadow:var(--shadow)}
+.card h3{margin-top:0}
+.prose p{max-width:76ch}
+.prose ul{padding-left:22px}
+.prose code, td code, li code, p code{background:var(--code-bg);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:.88em;white-space:nowrap}
+pre.codeblock{background:var(--ed-bg);color:var(--ed-ink);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.55;margin:12px 0}
+pre.codeblock .c{color:#7c8ea5;font-style:italic}
+pre.codeblock .k{color:#7dd3fc}
+.note{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 8px 8px 0;margin:14px 0;font-size:14.5px}
+.note b:first-child{color:var(--accent-ink)}
+table.facts{border-collapse:collapse;font-size:14px;margin:10px 0;width:100%;max-width:640px}
+table.facts th,table.facts td{border-bottom:1px solid var(--line);padding:7px 12px 7px 0;text-align:left;vertical-align:top}
+table.facts th{color:var(--ink2);font-size:12.5px;text-transform:uppercase;letter-spacing:.05em}
+
+/* ---------- exercise ---------- */
+.exercise{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;background:var(--panel);margin:18px 0;box-shadow:var(--shadow);overflow:hidden}
+.exercise.done{border-left-color:var(--good)}
+.ex-head{display:flex;align-items:center;gap:10px;padding:12px 18px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.ex-badge{font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--accent);text-transform:uppercase;white-space:nowrap}
+.exercise.done .ex-badge{color:var(--good)}
+.ex-head h4{margin:0;font-size:16px;flex:1}
+.done-mark{font-size:13px;font-weight:700;color:var(--good);display:none;white-space:nowrap}
+.exercise.done .done-mark{display:inline}
+.ex-body{padding:16px 18px}
+.ex-prompt{margin:0 0 12px;max-width:76ch}
+.target-panel{border:1px dashed var(--line2);border-radius:10px;padding:10px 16px;background:var(--panel2);margin-bottom:12px}
+.target-panel .tlabel{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:2px}
+.target-render{font-size:17px;overflow-x:auto;padding:6px 2px}
+.ex-work{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+.ex-work.stacked{grid-template-columns:minmax(0,1fr)}
+.pane{border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.pane-head{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);background:var(--panel2);border-bottom:1px solid var(--line);padding:6px 12px}
+.pane-head .spacer{flex:1}
+.pane-head button{border:none;background:none;color:var(--accent);font-size:12px;font-weight:600;padding:2px 4px}
+textarea.ed{width:100%;border:none;outline:none;resize:vertical;min-height:150px;padding:12px 14px;background:var(--ed-bg);color:var(--ed-ink);font-size:13.5px;line-height:1.55;tab-size:4;flex:1}
+textarea.ed.short{min-height:64px}
+.preview-scroll{overflow:auto;background:var(--bg);padding:14px;flex:1;min-height:120px}
+.math-preview{background:var(--panel);border-radius:8px;padding:14px 16px;font-size:18px;min-height:30px;overflow-x:auto}
+.compilelog{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:12px;line-height:1.5;padding:9px 12px;border-top:1px solid var(--line);white-space:pre-wrap;word-break:break-word}
+.compilelog.ok{background:var(--good-bg);color:var(--good)}
+.compilelog.err{background:var(--bad-bg);color:var(--bad)}
+.compilelog.warn{background:var(--warn-bg);color:var(--warn)}
+.compilelog .tip{display:block;margin-top:4px;color:var(--ink2);font-family:inherit}
+.ex-actions{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{border-radius:8px;border:1px solid transparent;padding:8px 16px;font-size:14px;font-weight:600}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:none;border-color:var(--line2);color:var(--ink2)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.feedback{font-size:14px;font-weight:600;flex:1;min-width:180px}
+.feedback.good{color:var(--good)}
+.feedback.bad{color:var(--bad)}
+.hintbox{display:none;border-left:3px solid var(--warn);background:var(--warn-bg);color:var(--ink);border-radius:0 8px 8px 0;padding:9px 13px;margin-top:12px;font-size:14px}
+.hintbox.show{display:block}
+.solutionbox{display:none;margin-top:12px}
+.solutionbox.show{display:block}
+.solutionbox pre{margin:6px 0 0}
+.sol-note{font-size:13px;color:var(--ink2)}
+
+/* ---------- quiz ---------- */
+.quiz .choices{display:flex;flex-direction:column;gap:8px;margin-top:10px;max-width:640px}
+.quiz .choice{display:block;text-align:left;border:1px solid var(--line2);background:var(--panel);color:var(--ink);border-radius:9px;padding:10px 14px;font-size:14.5px;line-height:1.45}
+.quiz .choice:hover{border-color:var(--accent)}
+.quiz .choice.correct{border-color:var(--good);background:var(--good-bg);color:var(--good);font-weight:600}
+.quiz .choice.wrong{border-color:var(--bad);background:var(--bad-bg);color:var(--bad);animation:shake .3s}
+.quiz .explain{display:none;margin-top:10px;font-size:14px;border-left:3px solid var(--good);background:var(--good-bg);padding:9px 13px;border-radius:0 8px 8px 0}
+.quiz .explain.show{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* ---------- fake pdf page ---------- */
+.pdfpage{background:#fff;color:#1a1a1a;font-family:Georgia,"Times New Roman",serif;font-size:14.5px;line-height:1.5;
+  padding:34px 42px;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.25),0 6px 18px rgba(0,0,0,.12);
+  max-width:660px;margin:0 auto;min-height:160px;overflow-wrap:break-word}
+.pdfpage .doctitle{text-align:center;font-size:21px;font-weight:400;margin:8px 0 2px}
+.pdfpage .docauthor{text-align:center;font-size:15px;margin:10px 0 2px}
+.pdfpage .docdate{text-align:center;font-size:14px;margin:8px 0 14px}
+.pdfpage h2.sec{font-size:18px;margin:20px 0 8px;font-weight:700;font-family:inherit}
+.pdfpage h3.sec{font-size:15.5px;margin:16px 0 6px;font-weight:700}
+.pdfpage h4.sec{font-size:14.5px;margin:14px 0 4px;font-weight:700}
+.pdfpage .par{display:block;height:.65em}
+.pdfpage ul,.pdfpage ol{margin:6px 0;padding-left:30px}
+.pdfpage li{margin:2px 0}
+.pdfpage li.custom{list-style:none;position:relative}
+.pdfpage li.custom>.lbl{position:absolute;left:-26px;min-width:22px;text-align:right}
+.pdfpage .centerblock{text-align:center}
+.pdfpage .centering{display:block;text-align:center}
+.pdfpage table.textable{border-collapse:collapse;margin:8px auto;font-size:14px}
+.pdfpage table.textable td{padding:3px 9px}
+.pdfpage .float{margin:16px 0}
+.pdfpage .caption{text-align:center;font-size:13px;margin:7px 0}
+.pdfpage .caption .capword{font-weight:400}
+.pdfpage img.incgfx{max-width:100%;height:auto}
+.pdfpage .abstractblk{margin:14px 36px}
+.pdfpage .abstractblk .abshead{text-align:center;font-weight:700;font-size:14px;margin-bottom:5px}
+.pdfpage .abstractblk .absbody{font-size:13.5px}
+.pdfpage .tocblock .toctitle{font-size:19px;font-weight:700;margin:14px 0 8px}
+.pdfpage .tocline{display:flex;align-items:baseline;gap:6px;font-size:14px}
+.pdfpage .tocline .dots{flex:1;border-bottom:1.5px dotted #999;transform:translateY(-3px)}
+.pdfpage .tocline.lv2{padding-left:22px;font-size:13.5px}
+.pdfpage .tocline.lv3{padding-left:44px;font-size:13px}
+.pdfpage .pgbreak{border:none;border-top:1.5px dashed #bbb;margin:18px -12px;position:relative}
+.pdfpage .eqwrap{display:flex;align-items:center;margin:10px 0}
+.pdfpage .eqwrap .eqbody{flex:1;overflow-x:auto}
+.pdfpage .eqwrap .eqno{padding-left:10px}
+.pdfpage .displaymath{margin:10px 0;overflow-x:auto}
+.pdfpage .xref{}
+.pdfpage .undefref{color:#1a1a1a;font-weight:700}
+.pdfpage .refsec{margin-top:18px}
+.pdfpage .refsec ol{padding-left:26px;font-size:13.5px}
+.pdfpage code.tt{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:none;border:none;padding:0;white-space:normal}
+.pdfpage .sz-tiny{font-size:.62em}.pdfpage .sz-small{font-size:.85em}.pdfpage .sz-large{font-size:1.2em}
+.pdfpage .sz-Large{font-size:1.44em}.pdfpage .sz-huge{font-size:1.9em}.pdfpage .sz-Huge{font-size:2.3em}
+.latex-logo{white-space:nowrap}
+.latex-logo .A{font-size:.72em;vertical-align:.22em;margin:0 -.14em}
+.latex-logo .E{vertical-align:-.21em;margin:0 -.11em}
+
+/* ---------- anatomy widget ---------- */
+.anatomy-wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px}
+.mini-paper{background:#fff;color:#111;font-family:Georgia,"Times New Roman",serif;border-radius:3px;
+  box-shadow:0 1px 4px rgba(0,0,0,.25),0 6px 18px rgba(0,0,0,.12);padding:22px 24px;font-size:9.5px;line-height:1.45;position:relative}
+.mini-paper .mp-title{text-align:center;font-size:14px;margin:2px 30px 4px}
+.mini-paper .mp-auth{text-align:center;font-size:9.5px;margin-bottom:8px}
+.mini-paper .mp-cols{column-count:2;column-gap:14px;text-align:justify}
+.mini-paper h5{font-size:10px;margin:7px 0 3px;font-family:inherit}
+.mini-paper .mp-eq{text-align:center;font-size:10.5px;margin:5px 0;font-style:italic}
+.mini-paper .mp-fig img{width:100%;display:block}
+.mini-paper .mp-capt{font-size:8px;text-align:center;margin:2px 0 6px}
+.mini-paper table{border-collapse:collapse;font-size:8px;margin:2px auto}
+.mini-paper table td,.mini-paper table th{padding:1px 5px;text-align:left}
+.mini-paper .rule-t{border-top:1.2px solid #111}.mini-paper .rule-m th{border-bottom:.7px solid #111}
+.mini-paper .rule-b{border-bottom:1.2px solid #111}
+.mini-paper .mp-refs{font-size:8px}
+.part-region{position:relative;border-radius:4px;transition:box-shadow .2s, background .2s}
+.part-region.lit{background:#fff3c4;box-shadow:0 0 0 2px #eda100}
+.pin{position:absolute;top:-7px;right:-7px;width:17px;height:17px;border-radius:50%;background:var(--accent);color:#fff;
+  font:700 10px/17px -apple-system,sans-serif;text-align:center;font-style:normal;cursor:pointer;border:none;padding:0;z-index:2}
+.pin.seen{background:var(--good)}
+.anatomy-side{display:flex;flex-direction:column;gap:8px}
+.anat-btns{display:flex;flex-wrap:wrap;gap:6px}
+.anat-btn{border:1px solid var(--line2);background:var(--panel);color:var(--ink2);border-radius:99px;padding:4px 12px;font-size:12.5px;font-weight:600}
+.anat-btn.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
+.anat-btn.seen::before{content:"✓ ";color:var(--good)}
+.anat-detail{border:1px solid var(--line);border-radius:10px;background:var(--panel2);padding:12px 14px;font-size:14px;flex:1}
+.anat-detail pre{margin:8px 0 0;font-size:12px}
+
+/* ---------- figure playground ---------- */
+.playground{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px}
+.pg-controls{display:flex;flex-direction:column;gap:14px}
+.pg-controls label.pgl{font-size:13px;font-weight:700;color:var(--ink2);display:block;margin-bottom:4px}
+.pg-controls input[type=range]{width:100%;accent-color:var(--accent)}
+.pg-controls input[type=text]{width:100%;border:1px solid var(--line2);border-radius:8px;padding:7px 10px;font:inherit;font-size:14px;background:var(--panel);color:var(--ink)}
+.pg-controls .radio-row{display:flex;gap:12px;flex-wrap:wrap;font-size:14px}
+.pg-out .preview-scroll{border:1px solid var(--line);border-radius:10px}
+
+/* ---------- capstone ---------- */
+.cap-layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:16px;align-items:start}
+.cap-steps{display:flex;flex-direction:column;gap:8px}
+.cap-step{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px 13px;cursor:pointer}
+.cap-step .cs-head{display:flex;gap:8px;align-items:center;font-weight:700;font-size:13.5px}
+.cap-step .cs-num{flex:0 0 20px;height:20px;border-radius:50%;border:1.5px solid var(--line2);font-size:11px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink3)}
+.cap-step.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.cap-step.active .cs-num{border-color:var(--accent);color:var(--accent)}
+.cap-step.done .cs-num{background:var(--good);border-color:var(--good);color:#fff}
+.cap-step .cs-body{display:none;font-size:13.5px;color:var(--ink2);margin-top:6px}
+.cap-step.active .cs-body{display:block}
+.cap-step .cs-body code{font-size:.85em}
+.cap-final{display:none;border:1.5px solid var(--good);background:var(--good-bg);border-radius:12px;padding:18px 20px;margin-top:14px}
+.cap-final.show{display:block}
+
+/* ---------- cheatsheet drawer ---------- */
+#cheatsBtn{position:fixed;right:18px;bottom:18px;z-index:60;background:var(--accent);color:#fff;border:none;border-radius:99px;
+  padding:11px 18px;font-size:14px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+#drawerBack{position:fixed;inset:0;background:rgba(10,15,20,.45);z-index:70;display:none}
+#drawerBack.show{display:block}
+#drawer{position:fixed;top:0;right:-420px;width:min(400px,92vw);height:100%;background:var(--panel);z-index:71;
+  box-shadow:-6px 0 24px rgba(0,0,0,.2);transition:right .25s ease;overflow-y:auto;padding:18px 20px 40px}
+#drawer.show{right:0}
+#drawer h3{margin:4px 0 2px}
+#drawer h4{margin:18px 0 6px;font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+#drawer table{border-collapse:collapse;width:100%;font-size:13px}
+#drawer td{border-bottom:1px solid var(--line);padding:5px 8px 5px 0;vertical-align:top}
+#drawer td:first-child{white-space:nowrap}
+#drawer pre{font-size:12px;background:var(--ed-bg);color:var(--ed-ink);border-radius:8px;padding:10px 12px;overflow-x:auto;position:relative}
+.copy-mini{float:right;border:1px solid var(--line2);background:var(--panel);color:var(--ink2);font-size:11px;border-radius:6px;padding:2px 8px;margin-left:8px}
+
+/* ---------- misc ---------- */
+.lesson-nav{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
+.lesson-nav .btn{max-width:48%}
+.part-banner{border-radius:14px;padding:26px 28px;margin:20px 0;background:linear-gradient(120deg,var(--accent) 0%,#134a77 100%);color:#fff;box-shadow:var(--shadow)}
+.part-banner h2{margin:0 0 6px;font-size:24px}
+.part-banner p{margin:0;opacity:.92;max-width:72ch}
+#katexWarn{display:none;background:var(--warn-bg);color:var(--warn);border-bottom:1px solid var(--line);padding:8px 20px;font-size:13.5px;text-align:center}
+#katexWarn.show{display:block}
+#confettiCanvas{position:fixed;inset:0;pointer-events:none;z-index:100}
+footer.foot{border-top:1px solid var(--line);background:var(--panel);margin-top:30px}
+.foot-inner{max-width:1240px;margin:0 auto;padding:22px 20px;font-size:13.5px;color:var(--ink2);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.foot-inner .spacer{flex:1}
+.bib-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:-1px}
+.bib-tab{border:1px solid var(--line);border-bottom:none;background:var(--panel2);color:var(--ink2);font-size:12.5px;font-weight:600;padding:5px 14px;border-radius:8px 8px 0 0}
+.bib-tab.active{background:var(--ed-bg);color:var(--ed-ink);border-color:var(--ed-bg)}
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr}
+  nav.side{position:static;max-height:none;display:flex;flex-wrap:wrap;gap:4px;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:10px}
+  nav.side .part-label{width:100%;margin:6px 0 2px 4px}
+  .ex-work,.anatomy-wrap,.playground{grid-template-columns:1fr}
+  .cap-layout{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div id="katexWarn">Math preview needs the KaTeX library from the internet and it did not load. You can still type answers and check them, you just will not see rendered math. Reconnect and reload for the full experience.</div>
+  <div class="top-inner">
+    <a class="brand" href="#l0">
+      <span class="logo">LaTeX <span class="tex">Practice Lab</span></span>
+      <small>learn it by typing it</small>
+    </a>
+    <span class="top-spacer"></span>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+      <span class="progress-label" id="progLabel">0 / 0</span>
+    </div>
+    <button class="iconbtn" id="themeBtn" title="Switch theme">◐ Theme</button>
+    <a class="iconbtn" href="https://github.com/danish-puri/LaTeX" target="_blank" rel="noopener" style="text-decoration:none">Course repo ↗</a>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="side" id="sideNav" aria-label="Lessons"></nav>
+  <main id="main"></main>
+</div>
+
+<button id="cheatsBtn">Cheat sheet</button>
+<div id="drawerBack"></div>
+<aside id="drawer" aria-label="Cheat sheet"></aside>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <span>Created by <strong>Danish Puri</strong> for the Intro to LaTeX course.</span>
+    <a href="https://github.com/danish-puri/LaTeX" target="_blank" rel="noopener">github.com/danish-puri/LaTeX</a>
+    <span class="spacer"></span>
+    <span>This page even fakes a LaTeX compiler, so the errors you meet here are the same ones Overleaf will throw at you.</span>
+    <button class="iconbtn" id="resetProgress">Reset progress</button>
+  </div>
+</footer>
+
+<canvas id="confettiCanvas"></canvas>
+
+<script>
+'use strict';
+/* =====================================================================
+   LaTeX Practice Lab. Created by Danish Puri.
+   Script part 1. Embedded assets and a miniature LaTeX compiler that
+   renders a fake PDF page and throws the same errors real LaTeX does.
+   ===================================================================== */
+
+/* ---------- embedded images (what \includegraphics can find) ---------- */
+var SVG_ACCURACY = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" font-family="Helvetica,Arial,sans-serif">'
+ + '<rect width="560" height="360" fill="#ffffff"/>'
+ + '<g stroke="#e8e8e6" stroke-width="1">'
+ + '<line x1="62" y1="248.2" x2="544" y2="248.2"/><line x1="62" y1="182.4" x2="544" y2="182.4"/>'
+ + '<line x1="62" y1="116.7" x2="544" y2="116.7"/><line x1="62" y1="50.9" x2="544" y2="50.9"/></g>'
+ + '<line x1="62" y1="18" x2="62" y2="314" stroke="#b9b8b3" stroke-width="1.2"/>'
+ + '<line x1="62" y1="314" x2="544" y2="314" stroke="#b9b8b3" stroke-width="1.2"/>'
+ + '<g fill="#52514e" font-size="12" text-anchor="end">'
+ + '<text x="54" y="318">50</text><text x="54" y="252.2">60</text><text x="54" y="186.4">70</text>'
+ + '<text x="54" y="120.7">80</text><text x="54" y="54.9">90</text></g>'
+ + '<g fill="#52514e" font-size="12" text-anchor="middle">'
+ + '<text x="62" y="332">0</text><text x="182.5" y="332">5</text><text x="303" y="332">10</text>'
+ + '<text x="423.5" y="332">15</text><text x="544" y="332">20</text></g>'
+ + '<text x="303" y="352" fill="#52514e" font-size="13" text-anchor="middle">Epoch</text>'
+ + '<text x="16" y="166" fill="#52514e" font-size="13" text-anchor="middle" transform="rotate(-90 16 166)">Test accuracy (%)</text>'
+ + '<polyline fill="none" stroke="#2a78d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+ + 'points="62,300.8 110.2,195.6 158.4,143.0 206.6,110.1 254.8,83.8 303,67.3 351.2,55.5 399.4,46.9 447.6,41.0 495.8,37.1 544,35.1"/>'
+ + '<circle cx="544" cy="35.1" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>'
+ + '<text x="538" y="24" fill="#52514e" font-size="12" text-anchor="end">92.4%</text>'
+ + '</svg>';
+
+var SVG_SETUP = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 150" font-family="Helvetica,Arial,sans-serif">'
+ + '<rect width="560" height="150" fill="#ffffff"/>'
+ + '<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">'
+ + '<path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>'
+ + '<g stroke="#52514e" stroke-width="1.5" fill="#eef4fb">'
+ + '<rect x="22" y="42" width="140" height="66" rx="10"/>'
+ + '<rect x="210" y="42" width="140" height="66" rx="10"/>'
+ + '<rect x="398" y="42" width="140" height="66" rx="10"/></g>'
+ + '<g stroke="#52514e" stroke-width="1.5" marker-end="url(#arw)">'
+ + '<line x1="164" y1="75" x2="206" y2="75"/><line x1="352" y1="75" x2="394" y2="75"/></g>'
+ + '<g fill="#1c1c1c" font-size="16" text-anchor="middle">'
+ + '<text x="92" y="81">Input  x</text><text x="280" y="81">Model  f(&#952;)</text><text x="468" y="81">Prediction  &#375;</text></g>'
+ + '</svg>';
+
+function svgUri(s){ return 'data:image/svg+xml;utf8,' + encodeURIComponent(s); }
+var IMAGES = {};
+IMAGES['accuracy.png'] = IMAGES['accuracy'] = svgUri(SVG_ACCURACY);
+IMAGES['setup.png'] = IMAGES['setup'] = svgUri(SVG_SETUP);
+
+/* ---------- the bibliography database (references.bib) ---------- */
+var BIBDB = {
+  'vaswani2017attention': { fmt: 'A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and I. Polosukhin, &#8220;Attention is all you need,&#8221; in <i>Advances in Neural Information Processing Systems</i>, 2017.' },
+  'lecun2015deep': { fmt: 'Y. LeCun, Y. Bengio, and G. Hinton, &#8220;Deep learning,&#8221; <i>Nature</i>, vol. 521, pp. 436-444, 2015.' },
+  'goodfellow2016deep': { fmt: 'I. Goodfellow, Y. Bengio, and A. Courville, <i>Deep Learning</i>. MIT Press, 2016.' }
+};
+var BIB_SOURCE = [
+'@inproceedings{vaswani2017attention,',
+'  author    = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and',
+'               Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N. and',
+'               Kaiser, Lukasz and Polosukhin, Illia},',
+'  title     = {Attention Is All You Need},',
+'  booktitle = {Advances in Neural Information Processing Systems},',
+'  year      = {2017}',
+'}',
+'',
+'@article{lecun2015deep,',
+'  author  = {LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey},',
+'  title   = {Deep Learning},',
+'  journal = {Nature},',
+'  volume  = {521},',
+'  pages   = {436-444},',
+'  year    = {2015}',
+'}',
+'',
+'@book{goodfellow2016deep,',
+'  author    = {Goodfellow, Ian and Bengio, Yoshua and Courville, Aaron},',
+'  title     = {Deep Learning},',
+'  publisher = {MIT Press},',
+'  year      = {2016}',
+'}'].join('\n');
+
+/* ---------- small helpers ---------- */
+var MK_ITEM = '\u0001ITEM\u0002';
+var MK_SEP = '\u0002';
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function todayStr(){ return new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}); }
+function lenToPx(str){
+  var m = /(-?[\d.]+)\s*(cm|mm|pt|em|in|ex|px)/.exec(str||'');
+  if(!m) return 12;
+  var mult = {cm:37.8, mm:3.78, pt:1.33, em:16, in:96, ex:8, px:1}[m[2]];
+  return Math.max(0, Math.min(300, parseFloat(m[1])*mult));
+}
+var LATEX_LOGO = '<span class="latex-logo">L<span class="A">A</span>T<span class="E">E</span>X</span>';
+var TEX_LOGO = '<span class="latex-logo">T<span class="E">E</span>X</span>';
+
+/* normalize a math snippet so equivalent spellings compare equal */
+function normMath(s){
+  var t = String(s).replace(/\s+/g,'').replace(/\\,|\\;|\\!|~/g,'');
+  t = t.replace(/\\left|\\right/g,'');
+  t = t.replace(/\\dfrac/g,'\\frac');
+  t = t.replace(/\\dots\b|\\cdots\b/g,'\\ldots');
+  var prev;
+  do { prev = t; t = t.replace(/([\^_])\{(\\[a-zA-Z]+|[A-Za-z0-9])\}/g, '$1$2'); } while(t !== prev);
+  return t;
+}
+
+/* split a tabular body into rows or cells, ignoring separators inside braces or $...$ */
+function splitTopLevel(str, mode){
+  var parts=[], cur='', depth=0, math=false, i, ch, nx;
+  for(i=0;i<str.length;i++){
+    ch=str[i];
+    if(ch==='\\'){
+      nx=str[i+1];
+      if(nx==='\\' && mode==='row' && depth===0 && !math){
+        parts.push(cur); cur=''; i++;
+        var j=i+1; while(j<str.length && (str[j]===' '||str[j]==='\t')) j++;
+        if(str[j]==='['){ var e=str.indexOf(']', j); if(e>-1) i=e; }
+        continue;
+      }
+      cur += ch + (nx===undefined?'':nx); i++; continue;
+    }
+    if(ch==='{') depth++;
+    else if(ch==='}') depth--;
+    else if(ch==='$') math=!math;
+    else if(ch==='&' && mode==='cell' && depth===0 && !math){ parts.push(cur); cur=''; continue; }
+    cur+=ch;
+  }
+  parts.push(cur);
+  return parts;
+}
+
+/* ---------- the compiler ---------- */
+function CompileError(msg, line, tip){
+  this.message = msg; this.line = line; this.tip = tip || '';
+}
+CompileError.prototype = Object.create(Error.prototype);
+CompileError.prototype.name = 'CompileError';
+
+var FRAG_PREFIX = '\\documentclass{article}\n\\usepackage{graphicx}\n\\usepackage{booktabs}\n\\usepackage{amsmath}\n\\usepackage{enumerate}\n\\usepackage{hyperref}\n\\begin{document}\n';
+var FRAG_LINES = FRAG_PREFIX.split('\n').length - 1;
+
+var MATH_ONLY = new Set(('frac sqrt sum int oint prod lim sin cos tan arcsin arccos arctan log ln exp '
+ + 'theta alpha beta gamma delta epsilon varepsilon pi sigma rho chi eta lambda mu nu omega phi varphi psi tau kappa zeta xi iota '
+ + 'Delta Sigma Pi Omega Gamma Theta Lambda Phi Psi Xi '
+ + 'infty cdot times div pm mp nabla partial leq geq neq approx equiv to rightarrow Rightarrow leftarrow mapsto sim propto '
+ + 'hat bar vec tilde mathbf mathrm mathbb mathcal mathit langle rangle forall exists in subset cup cap dfrac tfrac binom circ prime').split(' '));
+
+var SIZE_DECLS = { tiny:'sz-tiny', scriptsize:'sz-tiny', footnotesize:'sz-small', small:'sz-small',
+  normalsize:'sz-normal', large:'sz-large', Large:'sz-Large', LARGE:'sz-Large', huge:'sz-huge', Huge:'sz-Huge' };
+
+function Compiler(src, opts){
+  opts = opts || {};
+  this.s = String(src); this.i = 0;
+  this.lineOffset = opts.lineOffset || 0;
+  this.forcedLine = opts.forcedLine || null;
+  this.packages = opts.packages || new Set();
+  this.counters = opts.counters || {sec:0, sub:0, subsub:0, eq:0, fig:0, tab:0};
+  this.labels = opts.labels || null;            /* pass 2: resolved labels */
+  this.myLabels = opts.myLabels || {};          /* pass 1: labels being collected */
+  this.collect = !this.labels;
+  this.toc = opts.toc || null;                  /* pass 2: toc for rendering */
+  this.myToc = opts.myToc || [];
+  this.citeOrder = opts.citeOrder || null;      /* pass 2: cite numbering */
+  this.myCites = opts.myCites || [];
+  this.warnings = opts.warnings || [];
+  this.floatStack = opts.floatStack || [];
+  this.listDepth = opts.listDepth || 0;
+  this.currentRef = opts.currentRefBox || {v:null};
+  this.meta = opts.meta || {titleTex:null, authorTex:null, dateTex:null, bibStyle:null};
+}
+
+Compiler.prototype.line = function(at){
+  if(this.forcedLine) return this.forcedLine;
+  var to = (at===undefined||at===null) ? this.i : at, n=1, k;
+  for(k=0;k<to && k<this.s.length;k++) if(this.s[k]==='\n') n++;
+  return Math.max(1, n - this.lineOffset);
+};
+Compiler.prototype.err = function(msg, tip, at){
+  var ln = this.line(at);
+  throw new CompileError(msg, ln, tip);
+};
+
+Compiler.prototype.skipComment = function(){
+  while(this.i<this.s.length && this.s[this.i]!=='\n') this.i++;
+  this.i++; /* the comment eats its newline, like TeX */
+  while(this.i<this.s.length && (this.s[this.i]===' '||this.s[this.i]==='\t')) this.i++;
+};
+Compiler.prototype.skipWsComments = function(){
+  for(;;){
+    while(this.i<this.s.length && /\s/.test(this.s[this.i])) this.i++;
+    if(this.s[this.i]==='%'){ this.skipComment(); continue; }
+    return;
+  }
+};
+Compiler.prototype.readGroupRaw = function(cmd){
+  this.skipWsComments();
+  if(this.s[this.i]!=='{') this.err('LaTeX Error: \\'+cmd+' needs an argument in braces { }.','Write \\'+cmd+'{...} with the content inside curly braces.');
+  var depth=0, j=this.i;
+  for(; j<this.s.length; j++){
+    var ch=this.s[j];
+    if(ch==='\\'){ j++; continue; }
+    if(ch==='{') depth++;
+    else if(ch==='}'){ depth--; if(depth===0){ var raw=this.s.slice(this.i+1, j); this.i=j+1; return raw; } }
+  }
+  this.err('Missing } inserted. The argument of \\'+cmd+' never closes.','Count your braces.');
+};
+Compiler.prototype.readOptRaw = function(){
+  var save=this.i;
+  this.skipWsComments();
+  if(this.s[this.i]!=='['){ this.i=save; return null; }
+  var depth=0, j=this.i;
+  for(; j<this.s.length; j++){
+    var ch=this.s[j];
+    if(ch==='\\'){ j++; continue; }
+    if(ch==='{') depth++;
+    else if(ch==='}') depth--;
+    else if(ch===']' && depth===0){ var raw=this.s.slice(this.i+1, j); this.i=j+1; return raw; }
+  }
+  this.i=save; return null;
+};
+Compiler.prototype.parseGroupHtml = function(cmd){
+  this.skipWsComments();
+  if(this.s[this.i]!=='{') this.err('LaTeX Error: \\'+cmd+' needs an argument in braces { }.','Write \\'+cmd+'{...} with the content inside curly braces.');
+  this.i++;
+  return this.parseNodes({type:'brace'});
+};
+/* compile a raw snippet with shared state (used for table cells, title blocks, etc) */
+Compiler.prototype.spawn = function(raw, at){
+  var c = new Compiler(raw, {
+    packages:this.packages, counters:this.counters,
+    labels:this.labels, myLabels:this.myLabels,
+    toc:this.toc, myToc:this.myToc,
+    citeOrder:this.citeOrder, myCites:this.myCites,
+    warnings:this.warnings, floatStack:this.floatStack,
+    listDepth:this.listDepth, currentRefBox:this.currentRef,
+    meta:this.meta, forcedLine:this.line(at)
+  });
+  if(this.labels===null){ c.labels=null; c.collect=true; }
+  return c.parseNodes({type:'all'});
+};
+Compiler.prototype.scanEnvRaw = function(name){
+  var depth=0, j=this.i, beg='\\begin{'+name+'}', end='\\end{'+name+'}';
+  while(j<this.s.length){
+    if(this.s.startsWith(beg, j)){ depth++; j+=beg.length; continue; }
+    if(this.s.startsWith(end, j)){
+      if(depth===0){ var raw=this.s.slice(this.i, j); this.i=j+end.length; return raw; }
+      depth--; j+=end.length; continue;
+    }
+    j++;
+  }
+  this.err('File ended while scanning \\begin{'+name+'}. Add \\end{'+name+'}.','Every \\begin needs a matching \\end with the same name.');
+};
+function stripComments(raw){ return raw.replace(/(^|[^\\])%[^\n]*/g, '$1'); }
+
+/* ---- math rendering through KaTeX with translated errors ---- */
+Compiler.prototype.renderMath = function(tex, display, at){
+  tex = tex.trim();
+  if(tex==='') return '';
+  if(typeof katex === 'undefined'){
+    return '<code class="tt" style="background:#f3f3f3;padding:1px 4px">$'+escHtml(tex)+'$</code>';
+  }
+  var h;
+  try{
+    h = katex.renderToString(tex, {displayMode:!!display, throwOnError:true, strict:false});
+  }catch(e){
+    var m = ((e && e.message) || 'Math error').replace(/^KaTeX parse error:\s*/,'');
+    if(/Undefined control sequence/.test(m)){
+      var mm = m.match(/\\[a-zA-Z]+/);
+      this.err('Undefined control sequence'+(mm?' '+mm[0]:'')+' inside math.','LaTeX does not know that command. It is almost always a typo. Check the cheat sheet.', at);
+    }
+    if(/Double superscript/.test(m)) this.err('Double superscript.','Something like x^2^3 is ambiguous. Group it with braces, x^{2^3}.', at);
+    if(/Double subscript/.test(m)) this.err('Double subscript.','Something like x_1_2 is ambiguous. Group it with braces, x_{1_2}.', at);
+    if(/Expected '}'|Unexpected end of input|Expected group/.test(m)) this.err('Missing } inserted inside math.','Braces must balance. Every { needs a }.', at);
+    this.err('Math error: '+m.split(' at position')[0]+'.','Check the formula against the cheat sheet.', at);
+  }
+  if(display) return '<div class="displaymath">'+h+'</div>';
+  return h;
+};
+Compiler.prototype.readDollarMath = function(){
+  var at=this.i;
+  var dbl = this.s[this.i+1]==='$';
+  this.i += dbl?2:1;
+  var j=this.i, content=null;
+  for(;;){
+    var k=this.s.indexOf('$', j);
+    if(k===-1) this.err('Missing $ inserted. A formula opened with '+(dbl?'$$':'$')+' never closes.','Every dollar sign needs a partner. Count them.', at);
+    if(this.s[k-1]==='\\'){ j=k+1; continue; }
+    content=this.s.slice(this.i, k);
+    if(dbl){
+      if(this.s[k+1]==='$'){ this.i=k+2; }
+      else this.err('Display math opened with $$ must also close with $$.','You closed it with a single $.', at);
+    } else { this.i=k+1; }
+    break;
+  }
+  if(/\n[ \t]*\n/.test(content)) this.err('Missing $ inserted. There is a blank line inside a math formula.','Paragraph breaks are not allowed in math mode. Close the formula first.', at);
+  return this.renderMath(stripComments(content), dbl, at);
+};
+
+/* ---- main text parser ---- */
+Compiler.prototype.parseNodes = function(stop){
+  var out='', open=0;
+  function closeOpen(){ while(open>0){ out+='</span>'; open--; } }
+  for(;;){
+    if(this.i>=this.s.length){
+      if(stop.type==='all'){ closeOpen(); return out; }
+      if(stop.type==='doc') this.err('Emergency stop. I reached the end of the file but \\end{document} is missing.','Every document ends with \\end{document}.');
+      if(stop.type==='env') this.err('File ended while scanning \\begin{'+stop.name+'}. Add \\end{'+stop.name+'}.','Every \\begin needs a matching \\end.');
+      this.err('Missing } inserted. A { was opened but never closed.','Count your braces.');
+    }
+    var c=this.s[this.i];
+    if(c==='%'){ this.skipComment(); continue; }
+    if(c==='}'){
+      if(stop.type==='brace'){ this.i++; closeOpen(); return out; }
+      this.err("Too many }'s.",'There is a closing } with no matching opening {.');
+    }
+    if(c==='{'){ this.i++; out+=this.parseNodes({type:'brace'}); continue; }
+    if(c==='$'){ out+=this.readDollarMath(); continue; }
+    if(c==='&') this.err('Misplaced alignment tab character &.','A bare & only works inside a table. To print an ampersand, write \\&.');
+    if(c==='^'||c==='_') this.err('Missing $ inserted.','The characters ^ and _ only work in math mode. Wrap the formula in $...$.');
+    if(c==='#') this.err("You can't use 'macro parameter character #' in text.",'To print a # sign, write \\#.');
+    if(c==='~'){ this.i++; out+='&nbsp;'; continue; }
+    if(c==='\\'){
+      var r=this.readBackslash(stop);
+      if(r && r.declClass){ out+='<span class="'+r.declClass+'">'; open++; continue; }
+      if(r && r.end){ closeOpen(); return out; }
+      out += (r && r.html) || '';
+      continue;
+    }
+    if(c==='\n'){
+      var j=this.i, nl=0;
+      while(j<this.s.length && /\s/.test(this.s[j])){ if(this.s[j]==='\n') nl++; j++; }
+      this.i=j;
+      out += (nl>=2) ? '<span class="par"></span>' : ' ';
+      continue;
+    }
+    var t=this.i;
+    while(t<this.s.length && '\\{}$%&^_#~\n'.indexOf(this.s[t])===-1) t++;
+    out += escHtml(this.s.slice(this.i, t));
+    this.i=t;
+  }
+};
+
+Compiler.prototype.readBackslash = function(stop){
+  var at=this.i;
+  this.i++;
+  var c=this.s[this.i];
+  if(c===undefined) this.err('The file ends with a lonely backslash.','A backslash starts a command, so something must follow it.');
+  if(!/[a-zA-Z]/.test(c)){
+    this.i++;
+    switch(c){
+      case '\\': this.readOptRaw(); return {html:'<br>'};
+      case '$': case '%': case '&': case '#': case '_': case '{': case '}': return {html:escHtml(c)};
+      case ',': return {html:'&#8202;'};
+      case ';': case ' ': case '\n': return {html:' '};
+      case '!': return {html:''};
+      case '[': { var tex=this.scanDisplayBracket(at); return {html:this.renderMath(stripComments(tex), true, at)}; }
+      case '(': { var tex2=this.scanInlineParen(at); return {html:this.renderMath(stripComments(tex2), false, at)}; }
+      case ']': this.err('Missing \\[ inserted. Found \\] with no opening \\[.','Display math opens with \\[ and closes with \\].', at);
+      default: return {html:escHtml(c)};
+    }
+  }
+  var name='';
+  while(this.i<this.s.length && /[a-zA-Z]/.test(this.s[this.i])){ name+=this.s[this.i]; this.i++; }
+  if(this.s[this.i]==='*'){ name+='*'; this.i++; }
+  /* a control word swallows the space right after it, like real TeX */
+  while(this.s[this.i]===' '||this.s[this.i]==='\t') this.i++;
+  return this.command(name, stop, at);
+};
+Compiler.prototype.scanDisplayBracket = function(at){
+  var k=this.s.indexOf('\\]', this.i);
+  if(k===-1) this.err('Missing \\] inserted. Display math opened with \\[ never closes.','Close it with \\].', at);
+  var tex=this.s.slice(this.i, k); this.i=k+2; return tex;
+};
+Compiler.prototype.scanInlineParen = function(at){
+  var k=this.s.indexOf('\\)', this.i);
+  if(k===-1) this.err('Missing \\) inserted. Inline math opened with \\( never closes.','Close it with \\).', at);
+  var tex=this.s.slice(this.i, k); this.i=k+2; return tex;
+};
+
+Compiler.prototype.command = function(name, stop, at){
+  switch(name){
+    case 'begin': {
+      var env=this.readGroupRaw('begin');
+      return {html:this.environment(env, at)};
+    }
+    case 'end': {
+      var env2=this.readGroupRaw('end');
+      if(stop.type==='env' && env2===stop.name) return {end:true};
+      if(stop.type==='doc' && env2==='document') return {end:true};
+      if(stop.type==='env') this.err('\\begin{'+stop.name+'} ended by \\end{'+env2+'}.','Every \\begin{...} must be closed by an \\end{...} with the same name.', at);
+      this.err('\\end{'+env2+'} has no matching \\begin{'+env2+'}.','Did you close an environment twice, or misspell the \\begin?', at);
+    }
+    case 'section': case 'subsection': case 'subsubsection': {
+      var titleHtml=this.parseGroupHtml(name);
+      var num;
+      if(name==='section'){ this.counters.sec++; this.counters.sub=0; this.counters.subsub=0; num=''+this.counters.sec; }
+      else if(name==='subsection'){ if(this.counters.sec===0) this.counters.sec=1;
+        this.counters.sub++; this.counters.subsub=0; num=this.counters.sec+'.'+this.counters.sub; }
+      else { if(this.counters.sec===0) this.counters.sec=1; if(this.counters.sub===0) this.counters.sub=1;
+        this.counters.subsub++; num=this.counters.sec+'.'+this.counters.sub+'.'+this.counters.subsub; }
+      this.currentRef.v=num;
+      if(this.collect) this.myToc.push({lv:(name==='section'?1:name==='subsection'?2:3), num:num, html:titleHtml});
+      var tag = name==='section'?'h2':(name==='subsection'?'h3':'h4');
+      return {html:'<'+tag+' class="sec">'+num+'&nbsp;&nbsp;'+titleHtml+'</'+tag+'>'};
+    }
+    case 'textbf': return {html:'<strong>'+this.parseGroupHtml(name)+'</strong>'};
+    case 'textit': case 'emph': return {html:'<em>'+this.parseGroupHtml(name)+'</em>'};
+    case 'underline': return {html:'<u>'+this.parseGroupHtml(name)+'</u>'};
+    case 'texttt': return {html:'<code class="tt">'+this.parseGroupHtml(name)+'</code>'};
+    case 'textsc': return {html:'<span style="font-variant:small-caps">'+this.parseGroupHtml(name)+'</span>'};
+    case 'LaTeX': return {html:LATEX_LOGO};
+    case 'TeX': return {html:TEX_LOGO};
+    case 'ldots': case 'dots': case 'textellipsis': return {html:'&#8230;'};
+    case 'quad': return {html:'&emsp;'};
+    case 'qquad': return {html:'&emsp;&emsp;'};
+    case 'item': {
+      if(this.listDepth<1) this.err('LaTeX Error: Lonely \\item, perhaps a missing list environment.','\\item only works inside \\begin{itemize} or \\begin{enumerate}.', at);
+      var opt=this.readOptRaw();
+      var lbl = (opt===null) ? ' ' : this.spawn(opt, at);
+      return {html:MK_ITEM+lbl+MK_SEP};
+    }
+    case 'label': {
+      var key=this.readGroupRaw('label').trim();
+      if(this.collect){
+        if(Object.prototype.hasOwnProperty.call(this.myLabels, key))
+          this.warnings.push("Label '"+key+"' is defined more than once.");
+        this.myLabels[key]=this.currentRef.v===null?'??':String(this.currentRef.v);
+      }
+      return {html:''};
+    }
+    case 'ref': {
+      var rkey=this.readGroupRaw('ref').trim();
+      if(this.collect) return {html:'<span class="xref">?</span>'};
+      if(this.labels && Object.prototype.hasOwnProperty.call(this.labels, rkey))
+        return {html:'<span class="xref">'+escHtml(this.labels[rkey])+'</span>'};
+      this.warnings.push("Reference '"+rkey+"' undefined. It prints as ?? until a matching \\label exists.");
+      return {html:'<span class="undefref">??</span>'};
+    }
+    case 'pageref': { this.readGroupRaw('pageref'); return {html:'<span class="xref">1</span>'}; }
+    case 'cite': {
+      var keys=this.readGroupRaw('cite').split(',').map(function(k){return k.trim();}).filter(Boolean);
+      var outn=[];
+      for(var ki=0; ki<keys.length; ki++){
+        var kk=keys[ki];
+        if(BIBDB[kk]){
+          if(this.collect && this.myCites.indexOf(kk)===-1) this.myCites.push(kk);
+          if(!this.collect && this.citeOrder){ outn.push(String(this.citeOrder.indexOf(kk)+1)); }
+          else outn.push('?');
+        } else {
+          if(!this.collect) this.warnings.push("Citation '"+kk+"' undefined. That key is not in references.bib.");
+          outn.push('?');
+        }
+      }
+      return {html:'['+outn.join(', ')+']'};
+    }
+    case 'bibliographystyle': { this.meta.bibStyle=this.readGroupRaw('bibliographystyle').trim(); return {html:''}; }
+    case 'bibliography': {
+      var bf=this.readGroupRaw('bibliography').trim();
+      if(bf!=='references')
+        this.err("LaTeX Error: File '"+bf+".bib' not found.",'In this lab the bibliography file is called references.bib, so write \\bibliography{references}.', at);
+      var order=this.collect ? this.myCites : (this.citeOrder||[]);
+      if(order.length===0){
+        if(!this.collect) this.warnings.push('The reference list is empty because nothing was cited. Add a \\cite{...} first.');
+        return {html:'<div class="refsec"><h2 class="sec">References</h2></div>'};
+      }
+      var lis=order.map(function(k){ return '<li>'+BIBDB[k].fmt+'</li>'; }).join('');
+      return {html:'<div class="refsec"><h2 class="sec">References</h2><ol>'+lis+'</ol></div>'};
+    }
+    case 'maketitle': {
+      if(!this.meta.titleTex) this.err('LaTeX Error: No \\title given.','\\maketitle prints the title block, so define \\title{...} first, usually in the preamble.', at);
+      var th=this.spawn(this.meta.titleTex, at);
+      var ah=this.meta.authorTex ? this.spawn(this.meta.authorTex, at) : '';
+      if(!this.meta.authorTex && !this.collect) this.warnings.push('No \\author given. The title block prints without an author.');
+      var dh=(this.meta.dateTex===null||this.meta.dateTex===undefined) ? escHtml(todayStr())
+             : this.spawn(this.meta.dateTex, at);
+      return {html:'<div class="doctitle">'+th+'</div>'+(ah?'<div class="docauthor">'+ah+'</div>':'')+'<div class="docdate">'+dh+'</div>'};
+    }
+    case 'title': { this.meta.titleTex=this.readGroupRaw('title'); return {html:''}; }
+    case 'author': { this.meta.authorTex=this.readGroupRaw('author'); return {html:''}; }
+    case 'date': { this.meta.dateTex=this.readGroupRaw('date'); return {html:''}; }
+    case 'today': return {html:escHtml(todayStr())};
+    case 'tableofcontents': {
+      if(this.collect) return {html:''};
+      var toc=this.toc||[];
+      if(toc.length===0){
+        this.warnings.push('\\tableofcontents printed an empty table because the document has no sections yet.');
+        return {html:'<div class="tocblock"><div class="toctitle">Contents</div></div>'};
+      }
+      var lines=toc.map(function(e,ix){
+        var pg=1+Math.floor(ix/5);
+        return '<div class="tocline lv'+e.lv+'"><span>'+e.num+'&nbsp; '+e.html+'</span><span class="dots"></span><span>'+pg+'</span></div>';
+      }).join('');
+      return {html:'<div class="tocblock"><div class="toctitle">Contents</div>'+lines+'</div>'};
+    }
+    case 'includegraphics': {
+      if(!this.packages.has('graphicx'))
+        this.err('Undefined control sequence \\includegraphics.','\\includegraphics comes from the graphicx package. Add \\usepackage{graphicx} to the preamble.', at);
+      var gopt=this.readOptRaw()||'';
+      var file=this.readGroupRaw('includegraphics').trim();
+      var src=IMAGES[file];
+      if(!src) this.err("LaTeX Error: File '"+file+"' not found.",'This lab ships two images, accuracy.png and setup.png. Check the file name and spelling.', at);
+      var style='', wm;
+      if((wm=/width\s*=\s*([\d.]+)\s*\\textwidth/.exec(gopt))) style+='width:'+(parseFloat(wm[1])*100)+'%;';
+      else if((wm=/width\s*=\s*([\d.]+)\s*(cm|mm|pt|in)/.exec(gopt))) style+='width:'+lenToPx(wm[1]+wm[2])+'px;';
+      else if((wm=/scale\s*=\s*([\d.]+)/.exec(gopt))) style+='width:'+(parseFloat(wm[1])*70)+'%;';
+      else style+='width:70%;';
+      if((wm=/angle\s*=\s*(-?[\d.]+)/.exec(gopt))) style+='transform:rotate('+(-parseFloat(wm[1]))+'deg);';
+      return {html:'<img class="incgfx" alt="included graphic" src="'+src+'" style="'+style+'">'};
+    }
+    case 'caption': {
+      if(this.floatStack.length===0)
+        this.err('LaTeX Error: \\caption outside float.','\\caption only works inside \\begin{figure} or \\begin{table}.', at);
+      var fl=this.floatStack[this.floatStack.length-1];
+      var word, n;
+      if(fl.type==='figure'){ this.counters.fig++; n=this.counters.fig; word='Figure'; }
+      else { this.counters.tab++; n=this.counters.tab; word='Table'; }
+      this.currentRef.v=String(n);
+      var ch=this.parseGroupHtml('caption');
+      return {html:'<div class="caption"><span class="capword">'+word+' '+n+':</span> '+ch+'</div>'};
+    }
+    case 'centering': return {declClass:'centering'};
+    case 'vspace': case 'vspace*': { var vl=this.readGroupRaw('vspace'); return {html:'<span style="display:block;height:'+lenToPx(vl)+'px"></span>'}; }
+    case 'hspace': case 'hspace*': { var hl=this.readGroupRaw('hspace'); return {html:'<span style="display:inline-block;width:'+lenToPx(hl)+'px"></span>'}; }
+    case 'pagebreak': case 'newpage': case 'clearpage': this.readOptRaw(); return {html:'<hr class="pgbreak">'};
+    case 'par': return {html:'<span class="par"></span>'};
+    case 'noindent': case 'indent': case 'raggedright': return {html:''};
+    case 'verb': {
+      var d=this.s[this.i]; this.i++;
+      var e2=this.s.indexOf(d, this.i);
+      if(e2===-1) this.err('\\verb ended by end of line.','\\verb needs the same delimiter on both sides, like \\verb|...|.', at);
+      var vt=this.s.slice(this.i, e2); this.i=e2+1;
+      return {html:'<code class="tt">'+escHtml(vt)+'</code>'};
+    }
+    case 'url': {
+      if(!this.packages.has('hyperref'))
+        this.err('Undefined control sequence \\url.','\\url comes from the hyperref package. Add \\usepackage{hyperref} to the preamble.', at);
+      var u=this.readGroupRaw('url');
+      return {html:'<a class="url" href="#" onclick="return false">'+escHtml(u)+'</a>'};
+    }
+    case 'href': {
+      if(!this.packages.has('hyperref'))
+        this.err('Undefined control sequence \\href.','\\href comes from the hyperref package. Add \\usepackage{hyperref} to the preamble.', at);
+      var u2=this.readGroupRaw('href');
+      var t3=this.parseGroupHtml('href');
+      return {html:'<a class="url" href="#" onclick="return false" title="'+escHtml(u2)+'">'+t3+'</a>'};
+    }
+    case 'hline': case 'toprule': case 'midrule': case 'bottomrule':
+      this.err('Misplaced \\'+name+'.','\\'+name+' only works inside a tabular environment.', at);
+    case 'documentclass': case 'usepackage':
+      this.err('LaTeX Error: \\'+name+' can only be used in the preamble.','It belongs before \\begin{document}.', at);
+    case 'tableofcontent':
+      this.err('Undefined control sequence \\tableofcontent.','So close. The command is \\tableofcontents, with an s at the end.', at);
+    default:
+      if(SIZE_DECLS[name]) return {declClass:SIZE_DECLS[name]};
+      if(MATH_ONLY.has(name.replace(/\*$/,'')))
+        this.err('Missing $ inserted.','\\'+name+' only works in math mode. Wrap the formula in $...$ or \\[...\\].', at);
+      this.err('Undefined control sequence \\'+name+'.','LaTeX does not know that command. It is almost always a typo. Compare the spelling with the cheat sheet.', at);
+  }
+};
+
+Compiler.prototype.environment = function(env, at){
+  switch(env){
+    case 'itemize': case 'enumerate': {
+      var styleOpt=null;
+      if(env==='enumerate' && this.packages.has('enumerate')) styleOpt=this.readOptRaw();
+      this.listDepth++;
+      var inner=this.parseNodes({type:'env', name:env});
+      this.listDepth--;
+      var parts=inner.split(MK_ITEM);
+      var pre=parts.shift();
+      if(parts.length===0 && pre.replace(/<span class="par"><\/span>|\s/g,'')!=='')
+        this.err("Something's wrong, perhaps a missing \\item.",'Everything inside a list must belong to an \\item.', at);
+      var lis='';
+      for(var pi=0; pi<parts.length; pi++){
+        var p=parts[pi], ix=p.indexOf(MK_SEP);
+        var lbl=p.slice(0, ix), content=p.slice(ix+1);
+        if(lbl===' ') lis+='<li>'+content+'</li>';
+        else lis+='<li class="custom"><span class="lbl">'+lbl+'</span>'+content+'</li>';
+      }
+      var preHtml = pre.replace(/<span class="par"><\/span>|\s/g,'')!=='' ? '<div>'+pre+'</div>' : '';
+      if(env==='itemize') return '<ul>'+preHtml+lis+'</ul>';
+      var lst='decimal';
+      if(styleOpt!==null){
+        var so=styleOpt.trim();
+        if(/^I/.test(so)) lst='upper-roman';
+        else if(/^i/.test(so)) lst='lower-roman';
+        else if(/^A/.test(so)) lst='upper-alpha';
+        else if(/^\(?a/.test(so)) lst='lower-alpha';
+      }
+      return '<ol style="list-style-type:'+lst+'">'+preHtml+lis+'</ol>';
+    }
+    case 'center': return '<div class="centerblock">'+this.parseNodes({type:'env',name:'center'})+'</div>';
+    case 'flushleft': return '<div style="text-align:left">'+this.parseNodes({type:'env',name:'flushleft'})+'</div>';
+    case 'flushright': return '<div style="text-align:right">'+this.parseNodes({type:'env',name:'flushright'})+'</div>';
+    case 'abstract': return '<div class="abstractblk"><div class="abshead">Abstract</div><div class="absbody">'+this.parseNodes({type:'env',name:'abstract'})+'</div></div>';
+    case 'figure': case 'table': {
+      this.readOptRaw();
+      this.floatStack.push({type:env});
+      var fin=this.parseNodes({type:'env', name:env});
+      this.floatStack.pop();
+      return '<div class="float">'+fin+'</div>';
+    }
+    case 'tabular': return this.renderTabular(at);
+    case 'equation': case 'equation*': {
+      var raw=stripComments(this.scanEnvRaw(env));
+      var eqKeys=[];
+      raw=raw.replace(/\\label\{([^}]*)\}/g, function(m,k){ eqKeys.push(k.trim()); return ''; });
+      var tagN=null;
+      if(env==='equation'){ this.counters.eq++; tagN=this.counters.eq; this.currentRef.v=String(tagN); }
+      if(this.collect){
+        for(var ei=0; ei<eqKeys.length; ei++){
+          if(Object.prototype.hasOwnProperty.call(this.myLabels, eqKeys[ei]))
+            this.warnings.push("Label '"+eqKeys[ei]+"' is defined more than once.");
+          this.myLabels[eqKeys[ei]] = tagN===null?'??':String(tagN);
+        }
+      }
+      var mh=this.renderMath(raw, true, at);
+      if(tagN===null) return mh;
+      return '<div class="eqwrap"><div class="eqbody">'+mh+'</div><div class="eqno">('+tagN+')</div></div>';
+    }
+    case 'align': case 'align*': {
+      var araw=stripComments(this.scanEnvRaw(env));
+      var aKeys=[];
+      araw=araw.replace(/\\label\{([^}]*)\}/g, function(m,k){ aKeys.push(k.trim()); return ''; });
+      var atag=null;
+      if(env==='align'){ this.counters.eq++; atag=this.counters.eq; this.currentRef.v=String(atag); }
+      if(this.collect){
+        for(var ai=0; ai<aKeys.length; ai++) this.myLabels[aKeys[ai]] = atag===null?'??':String(atag);
+      }
+      var ah2=this.renderMath('\\begin{aligned}'+araw+'\\end{aligned}', true, at);
+      if(atag===null) return ah2;
+      return '<div class="eqwrap"><div class="eqbody">'+ah2+'</div><div class="eqno">('+atag+')</div></div>';
+    }
+    case 'verbatim': {
+      var vraw=this.scanEnvRaw('verbatim');
+      return '<pre class="tt" style="font-size:.85em">'+escHtml(vraw.replace(/^\n/,''))+'</pre>';
+    }
+    case 'eqnarray':
+      this.err('The eqnarray environment is obsolete.','Use equation for one line or align for several. Your future coauthors thank you.', at);
+    case 'document':
+      this.err('LaTeX Error: Can be used only in preamble.','You are already inside \\begin{document}. Remove the second one.', at);
+    default:
+      this.err('LaTeX Error: Environment '+env+' undefined.','Check the spelling of the environment name.', at);
+  }
+};
+
+Compiler.prototype.renderTabular = function(at){
+  var spec=this.readGroupRaw('tabular');
+  var raw=stripComments(this.scanEnvRaw('tabular'));
+  var cols=[], bars=[0], si, ch;
+  for(si=0; si<spec.length; si++){
+    ch=spec[si];
+    if(ch==='|'){ bars[cols.length]=(bars[cols.length]||0)+1; }
+    else if(ch==='l'||ch==='c'||ch==='r'){ cols.push(ch==='l'?'left':ch==='c'?'center':'right'); bars[cols.length]=bars[cols.length]||0; }
+    else if(ch==='p'){ var pb=spec.indexOf('}', si); si=(pb===-1?spec.length:pb); cols.push('left'); bars[cols.length]=0; }
+    else if(/\s/.test(ch)){ continue; }
+    else this.err('LaTeX Error: Illegal character in tabular column spec: '+ch+'.','Column letters are l, c and r, with | for vertical lines. Example: {|l|c|r|}', at);
+  }
+  if(cols.length===0) this.err('LaTeX Error: The tabular column spec is empty.','Tell LaTeX the columns, like \\begin{tabular}{|l|c|}.', at);
+  var chunks=splitTopLevel(raw, 'row');
+  var rows=[], pending=[], usedBooktabs=false;
+  for(var ci=0; ci<chunks.length; ci++){
+    var chunk=chunks[ci];
+    for(;;){
+      var mm=/^\s*\\(hline|toprule|midrule|bottomrule)\b/.exec(chunk);
+      if(!mm) break;
+      if(mm[1]!=='hline'){
+        usedBooktabs=true;
+        if(!this.packages.has('booktabs'))
+          this.err('Undefined control sequence \\'+mm[1]+'.','The rules \\toprule, \\midrule and \\bottomrule come from the booktabs package. Add \\usepackage{booktabs}.', at);
+      }
+      pending.push(mm[1]);
+      chunk=chunk.slice(mm.index+mm[0].length);
+    }
+    if(chunk.replace(/\s/g,'')===''){ continue; }
+    var cellsRaw=splitTopLevel(chunk, 'cell');
+    if(cellsRaw.length>cols.length)
+      this.err('Extra alignment tab has been changed to \\cr.','A row has more & separators than the column spec has columns. A missing \\\\ at the end of the previous row is the usual cause.', at);
+    var cells=[];
+    for(var cj=0; cj<cellsRaw.length; cj++) cells.push(this.spawn(cellsRaw[cj].trim(), at));
+    while(cells.length<cols.length) cells.push('');
+    rows.push({cells:cells, top:pending});
+    pending=[];
+  }
+  var bottom=pending;
+  function ruleCss(rules){
+    if(rules.length===0) return '';
+    if(rules.indexOf('toprule')>-1 || rules.indexOf('bottomrule')>-1) return '2px solid #111';
+    if(rules.indexOf('midrule')>-1) return '1px solid #111';
+    if(rules.length>=2) return '3px double #333';
+    return '1px solid #333';
+  }
+  var html='<table class="textable"'+(usedBooktabs?' style="border-spacing:0"':'')+'>';
+  for(var ri=0; ri<rows.length; ri++){
+    var row=rows[ri];
+    html+='<tr>';
+    for(var ki2=0; ki2<cols.length; ki2++){
+      var st='text-align:'+cols[ki2]+';';
+      if(ki2===0 && bars[0]) st+='border-left:'+(bars[0]>1?'3px double #333':'1px solid #333')+';';
+      if(bars[ki2+1]) st+='border-right:'+(bars[ki2+1]>1?'3px double #333':'1px solid #333')+';';
+      var tr2=ruleCss(row.top); if(tr2) st+='border-top:'+tr2+';';
+      if(ri===rows.length-1){ var br=ruleCss(bottom); if(br) st+='border-bottom:'+br+';'; }
+      if(usedBooktabs) st+='padding:4px 10px;';
+      html+='<td style="'+st+'">'+row.cells[ki2]+'</td>';
+    }
+    html+='</tr>';
+  }
+  html+='</table>';
+  return html;
+};
+
+/* ---- document driver ---- */
+Compiler.prototype.run = function(){
+  this.skipWsComments();
+  if(!this.s.startsWith('\\documentclass', this.i))
+    this.err('LaTeX Error: Missing \\documentclass.','Every document starts with a class, usually \\documentclass{article}.');
+  this.i+='\\documentclass'.length;
+  this.readOptRaw();
+  this.readGroupRaw('documentclass');
+  for(;;){
+    this.skipWsComments();
+    if(this.i>=this.s.length)
+      this.err('LaTeX Error: Missing \\begin{document}.','The preamble must be followed by \\begin{document} ... \\end{document}.');
+    if(this.s[this.i]==='\\'){
+      var save=this.i;
+      this.i++;
+      var name='';
+      while(this.i<this.s.length && /[a-zA-Z]/.test(this.s[this.i])){ name+=this.s[this.i]; this.i++; }
+      if(name==='begin'){
+        var env=this.readGroupRaw('begin');
+        if(env==='document') break;
+        this.err('LaTeX Error: Missing \\begin{document}.','\\begin{'+env+'} appears in the preamble. Environments belong in the body, after \\begin{document}.', save);
+      } else if(name==='usepackage'){
+        this.readOptRaw();
+        var pk=this.readGroupRaw('usepackage');
+        var pcs=pk.split(','); for(var pj=0; pj<pcs.length; pj++) this.packages.add(pcs[pj].trim());
+      } else if(name==='title'){ this.meta.titleTex=this.readGroupRaw('title'); }
+      else if(name==='author'){ this.meta.authorTex=this.readGroupRaw('author'); }
+      else if(name==='date'){ this.meta.dateTex=this.readGroupRaw('date'); }
+      else if(name==='documentclass'){ this.err('LaTeX Error: Two \\documentclass commands.','A document has exactly one \\documentclass.', save); }
+      else if(name==='newcommand'||name==='renewcommand'||name==='setlength'||name==='pagestyle'||name==='definecolor'||name==='hypersetup'){
+        this.readOptRaw(); if(this.s[this.i]==='{') this.readGroupRaw(name);
+        this.readOptRaw(); if(this.s[this.i]==='{') this.readGroupRaw(name);
+      }
+      else this.err('Undefined control sequence \\'+name+' in the preamble.','LaTeX does not know that command. It is almost always a typo.', save);
+    } else {
+      this.err('LaTeX Error: Missing \\begin{document}.','There is text before \\begin{document}. Body text goes after it.');
+    }
+  }
+  var body=this.parseNodes({type:'doc'});
+  return {html:body};
+};
+
+function compileLatex(source, opts){
+  opts=opts||{};
+  var src=String(source), lineOffset=0;
+  if(opts.fragment){ src=FRAG_PREFIX+src+'\n\\end{document}\n'; lineOffset=FRAG_LINES; }
+  var c1=new Compiler(src, {lineOffset:lineOffset});
+  c1.run();
+  var c2=new Compiler(src, {lineOffset:lineOffset, labels:c1.myLabels, toc:c1.myToc, citeOrder:c1.myCites});
+  var r2=c2.run();
+  return {html:r2.html, warnings:c2.warnings, toc:c1.myToc, labels:c1.myLabels, cites:c1.myCites};
+}
+
+/* expose for testing */
+if(typeof globalThis!=='undefined'){
+  globalThis.LatexLab={compileLatex:compileLatex, Compiler:Compiler, CompileError:CompileError,
+    normMath:normMath, splitTopLevel:splitTopLevel, BIBDB:BIBDB, BIB_SOURCE:BIB_SOURCE, IMAGES:IMAGES,
+    FRAG_PREFIX:FRAG_PREFIX, escHtml:escHtml};
+}
+</script>
+
+<script>
+'use strict';
+/* =====================================================================
+   Script part 2. All lesson content, exercises, quizzes and checks.
+   ===================================================================== */
+
+function textOf(html){
+  var t=String(html).replace(/<[^>]*>/g,'');
+  t=t.replace(/&nbsp;/g,' ').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+     .replace(/&#8230;/g,'...').replace(/&#8202;/g,'').replace(/&#8220;|&#8221;/g,'"');
+  return t.replace(/\s+/g,' ').trim();
+}
+function mathSegs(src){
+  var out=[], re=/\$\$([\s\S]*?)\$\$|\$([^$]*)\$|\\\[([\s\S]*?)\\\]/g, m;
+  while((m=re.exec(src))!==null) out.push(normMath(m[1]||m[2]||m[3]||''));
+  return out;
+}
+function hasMath(src, target){ return mathSegs(src).indexOf(normMath(target))>-1; }
+function ok(){ return {ok:true}; }
+function fail(msg){ return {ok:false, msg:msg}; }
+function esc(s){ return escHtml(s); }
+
+/* a math answer checker with acceptable variants and trap messages */
+function mathCheck(accepted, traps){
+  return function(input){
+    var n=normMath(input);
+    if(n==='') return fail('Type your answer in the editor first.');
+    for(var i=0;i<accepted.length;i++) if(n===normMath(accepted[i])) return ok();
+    if(traps){ for(var t=0;t<traps.length;t++) if(traps[t].test.test(n)) return fail(traps[t].msg); }
+    return fail('Not quite. Compare your preview with the target above, then check the hint.');
+  };
+}
+
+var LESSONS=[
+
+/* ================= LESSON 0 : START HERE ================= */
+{ id:'l0', part:0, num:'', title:'Start here', kicker:'Welcome',
+  lede:'A hands-on practice lab for my Intro to LaTeX course. No installs, no setup. You type LaTeX, this page compiles it in front of you.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>How this page works</h3>
+   <p>I built this lab so you can practice everything from the course by actually typing it. Reading about
+   LaTeX teaches you almost nothing. Typing it, breaking it, and reading the error teaches you everything.</p>
+   <ul>
+     <li><b>The editor</b> on the left of each exercise is where you write LaTeX.</li>
+     <li><b>The preview</b> on the right pretends to be the compiled PDF. It updates as you type.</li>
+     <li><b>The log</b> under the preview shows real LaTeX error messages, the same ones Overleaf will show you, plus a plain-English translation.</li>
+     <li><b>Check my answer</b> tells you if you nailed the task. Hints and solutions are there when you are stuck, and nobody is grading you.</li>
+   </ul>
+   <p>Part 1 drills the language. Part 2 uses it to build a real research paper, figures, tables, citations and all.
+   Your progress is saved in this browser.</p>
+   <div class="note"><b>Golden rule.</b> Compile after every small change. Then the bug is always in the last thing you typed.</div>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-0-1', badge:'Warm up', title:'Fix your first compile error', mode:'doc',
+    prompt: String.raw`This document is broken in the most classic way possible. Look at the log under the preview, read the <b>first</b> error, and fix it.`,
+    starter: String.raw`\documentclass{article}
+
+\begin{document}
+
+Hello! I am learning \LaTeX{} and it
+already feels like a superpower.
+
+% Something is missing below this line.
+`,
+    check:function(src,res){
+      if(!/\\end\{document\}/.test(src)) return fail('The log is telling you exactly which command is missing at the end.');
+      return ok();
+    },
+    hints:['Read the error message in the log. It names the missing command.',
+           'Every document ends the same way it began, with a matching command.'],
+    solution: String.raw`\documentclass{article}
+
+\begin{document}
+
+Hello! I am learning \LaTeX{} and it
+already feels like a superpower.
+
+\end{document}`,
+    solNote:'Every \\begin{document} needs its \\end{document}. This will not be the last time you forget it.'
+  }}
+]},
+
+/* ================= LESSON 1 : THE SKELETON ================= */
+{ id:'l1', part:1, num:'1', title:'The skeleton', kicker:'Part 1 · The language',
+  lede:'Every LaTeX document has the same three-part shape. Learn it once and you can read any .tex file on earth.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>Preamble, body, done</h3>
+<pre class="codeblock"><span class="k">\documentclass{article}</span>   <span class="c">% 1. what kind of document</span>
+<span class="k">\usepackage{graphicx}</span>     <span class="c">% 2. the preamble: load packages, set options</span>
+
+<span class="k">\begin{document}</span>          <span class="c">% 3. the body starts</span>
+Hello, world!
+<span class="k">\end{document}</span>            <span class="c">% and ends. Anything after this is ignored.</span></pre>
+   <p>Three facts worth memorizing.</p>
+   <ul>
+     <li>Commands start with a backslash and use curly braces for their input, like <code>\textbf{hi}</code>.</li>
+     <li>A <code>%</code> starts a comment. LaTeX ignores the rest of that line. Great for notes to yourself, terrible when you actually meant to type a percent sign.</li>
+     <li>A command written as a word eats the space right after it. <code>\LaTeX is fun</code> prints as &ldquo;LaTeXis fun&rdquo;. Write <code>\LaTeX{} is fun</code> and the empty braces stop the eating.</li>
+   </ul>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-1-1', badge:'Exercise 1.1', title:'Write a whole document from scratch', mode:'doc',
+    prompt: String.raw`Build a complete document that prints <b>Hello, LaTeX!</b> (with the fancy logo) followed by the most famous equation in mathematics, <b>Euler's identity</b>, inline: <code>e^{i\pi} + 1 = 0</code>. You need the full skeleton, the <code>\LaTeX{}</code> logo command, and inline math with <code>$...$</code>.`,
+    starter: String.raw`% Build the document here.
+% 1. The article document class.
+% 2. \begin{document} ... \end{document}
+% 3. Inside: Hello, \LaTeX{}! and then Euler's identity in $...$
+`,
+    check:function(src,res){
+      if(!/\\documentclass\s*(\[[^\]]*\])?\s*\{\s*article\s*\}/.test(src)) return fail('Start with the article document class.');
+      if(!/\\LaTeX/.test(src)) return fail('Use the \\LaTeX{} command so the logo is typeset properly.');
+      if(!hasMath(src,'e^{i\\pi}+1=0')) return fail('The equation should be e^{i\\pi} + 1 = 0, inside single dollar signs. Watch the superscript braces.');
+      return ok();
+    },
+    hints:['The skeleton is \\documentclass{article}, then \\begin{document}, your text, \\end{document}.',
+           'Inline math sits between single dollar signs. The exponent needs braces: e^{i\\pi}.'],
+    solution: String.raw`\documentclass{article}
+
+\begin{document}
+
+Hello, \LaTeX{}! Here is Euler's identity: $e^{i\pi} + 1 = 0$.
+
+\end{document}`,
+    solNote:'That is the whole workflow. Skeleton, content, compile.'
+  }},
+  {type:'quiz', quiz:{
+    id:'qz-1-1',
+    q:'A line in your file reads: The result improved by 20% which is great. What does LaTeX print?',
+    choices:[
+      {t:'&ldquo;The result improved by 20&rdquo; and silently throws away the rest of the line', okc:true,
+       why:'Right. The % starts a comment, so &ldquo;which is great&rdquo; simply vanishes. No error, no warning. Write \\% when you mean percent.'},
+      {t:'&ldquo;The result improved by 20% which is great.&rdquo;', okc:false, why:''},
+      {t:'A compile error about an illegal character', okc:false, why:''},
+      {t:'Nothing, the whole line is skipped', okc:false, why:''}
+    ]
+  }}
+]},
+
+/* ================= LESSON 2 : MATH MODE ================= */
+{ id:'l2', part:1, num:'2', title:'Math mode', kicker:'Part 1 · The language',
+  lede:'The reason LaTeX exists. Eight quick reps, from the Pythagorean theorem to an integral. Type each formula until the preview matches the target.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>Two modes, one rule</h3>
+   <p><b>Inline math</b> lives inside a sentence between single dollar signs, <code>$a^2+b^2=c^2$</code>.
+   <b>Display math</b> gets its own centered line inside <code>\[ ... \]</code>. Everything mathematical, even a single
+   variable name like <code>$n$</code>, belongs in math mode.</p>
+   <table class="facts">
+   <tr><th>You want</th><th>You type</th></tr>
+   <tr><td>superscript, subscript</td><td><code>x^2</code>, <code>a_1</code>, and braces to group: <code>x^{12}</code></td></tr>
+   <tr><td>fraction, root</td><td><code>\frac{a}{b}</code>, <code>\sqrt{x}</code>, <code>\sqrt[3]{x}</code></td></tr>
+   <tr><td>Greek letters</td><td><code>\alpha, \theta, \pi</code>, capitalize for <code>\Pi</code></td></tr>
+   <tr><td>functions that print upright</td><td><code>\sin, \cos, \lim, \log</code></td></tr>
+   <tr><td>big operators</td><td><code>\sum_{i=1}^{n}</code>, <code>\int_0^1</code></td></tr>
+   </table>
+   <p>In the exercises below you type only the math itself. No dollar signs needed, the lab adds them.</p>
+   </div>`},
+  {type:'exercise', ex:{ id:'ex-2-1', badge:'Exercise 2.1', title:'The Pythagorean theorem', mode:'math',
+    prompt:'Superscripts only. Match the target.',
+    target: String.raw`a^2 + b^2 = c^2`, starter:'',
+    check:mathCheck([String.raw`a^2+b^2=c^2`, String.raw`c^2=a^2+b^2`]),
+    hints:['The caret ^ makes a superscript. One character needs no braces.'],
+    solution:String.raw`a^2 + b^2 = c^2` }},
+  {type:'exercise', ex:{ id:'ex-2-2', badge:'Exercise 2.2', title:'The superscript trap', mode:'math',
+    prompt:String.raw`Typeset x to the power of twelve. This one has caught every student I have ever taught.`,
+    target: String.raw`x^{12}`, starter:'',
+    check:mathCheck([String.raw`x^{12}`], [
+      {test:/^x\^12$/, msg:'So close, and this is the trap. ^ grabs only ONE character, so x^12 prints x to the power 1, followed by a 2. Group the whole exponent in braces.'}
+    ]),
+    hints:['Braces group. The whole exponent goes inside { }.'],
+    solution:String.raw`x^{12}` }},
+  {type:'exercise', ex:{ id:'ex-2-3', badge:'Exercise 2.3', title:'A sequence with clean dots', mode:'math',
+    prompt:String.raw`Subscripts plus the dots command. Match the target exactly, commas included.`,
+    target: String.raw`a_1, a_2, \ldots, a_{100}`, starter:'',
+    check:mathCheck([String.raw`a_1,a_2,\ldots,a_{100}`], [
+      {test:/a_100/, msg:'Check the last term. _ grabs only one character, so a_100 prints a with subscript 1, then 00. Braces.'},
+      {test:/\.\.\./, msg:'Three periods work, but they look cramped. LaTeX has a command for properly spaced dots.'}
+    ]),
+    hints:['The underscore _ makes subscripts. The dots command is \\ldots.','The subscript 100 has three characters, so it needs braces.'],
+    solution:String.raw`a_1, a_2, \ldots, a_{100}` }},
+  {type:'exercise', ex:{ id:'ex-2-4', badge:'Exercise 2.4', title:'A fraction inside a fraction', mode:'math',
+    prompt:'Nesting is allowed and encouraged.',
+    target: String.raw`\frac{1}{1 + \frac{1}{x}}`, starter:'',
+    check:mathCheck([String.raw`\frac{1}{1+\frac{1}{x}}`]),
+    hints:['\\frac{top}{bottom}. The bottom of the outer fraction contains another whole \\frac.'],
+    solution:String.raw`\frac{1}{1 + \frac{1}{x}}` }},
+  {type:'exercise', ex:{ id:'ex-2-5', badge:'Exercise 2.5', title:'A cube root', mode:'math',
+    prompt:'The root index goes in square brackets.',
+    target: String.raw`\sqrt[3]{x^2 + y^2}`, starter:'',
+    check:mathCheck([String.raw`\sqrt[3]{x^2+y^2}`]),
+    hints:['\\sqrt[n]{...} puts the little n on the root sign.'],
+    solution:String.raw`\sqrt[3]{x^2 + y^2}` }},
+  {type:'exercise', ex:{ id:'ex-2-6', badge:'Exercise 2.6', title:'Sine, done right', mode:'math',
+    prompt:String.raw`Typeset y equals sine of theta. Watch how the function name is printed in the target. Upright, not italic.`,
+    target: String.raw`y = \sin \theta`, starter:'',
+    check:mathCheck([String.raw`y=\sin\theta`, String.raw`y=\sin(\theta)`], [
+      {test:/(^|[^\\a-z])sin/, msg:'LaTeX read your "sin" as three variables, s times i times n, all italic. Function names have their own commands. Backslash it.'}
+    ]),
+    hints:['\\sin prints upright letters, plain sin prints italic s, i, n multiplied together.','Theta is \\theta.'],
+    solution:String.raw`y = \sin \theta` }},
+  {type:'exercise', ex:{ id:'ex-2-7', badge:'Exercise 2.7', title:'The sum of the first n numbers', mode:'math',
+    prompt:'A big operator with limits below and above, and a fraction for the answer.',
+    target: String.raw`\sum_{i=1}^{n} i = \frac{n(n+1)}{2}`, starter:'',
+    check:mathCheck([String.raw`\sum_{i=1}^{n}i=\frac{n(n+1)}{2}`]),
+    hints:['\\sum takes limits like sub and superscripts: \\sum_{i=1}^{n}.','The lower limit i=1 has three characters, so braces.'],
+    solution:String.raw`\sum_{i=1}^{n} i = \frac{n(n+1)}{2}` }},
+  {type:'exercise', ex:{ id:'ex-2-8', badge:'Exercise 2.8', title:'A definite integral', mode:'math',
+    prompt:String.raw`Limits on the integral sign, and notice the small gap before dx in the target. That is the thin space <code>\,</code>. Your answer counts with or without it, but papers look better with it.`,
+    target: String.raw`\int_0^1 x^2 \, dx = \frac{1}{3}`, starter:'',
+    check:mathCheck([String.raw`\int_0^1x^2dx=\frac{1}{3}`]),
+    hints:['\\int_0^1 puts the limits on the integral.','\\, adds the traditional thin space before dx.'],
+    solution:String.raw`\int_0^1 x^2 \, dx = \frac{1}{3}` }},
+  {type:'quiz', quiz:{
+    id:'qz-2-1',
+    q:'Which of these compiles without any error but prints the WRONG thing?',
+    choices:[
+      {t:'<code>$x^12$</code>', okc:true,
+       why:'Exactly. It compiles happily and prints x to the power 1 followed by a 2. Silent mistakes are the sneakiest kind, which is why you always look at the output, not just the log.'},
+      {t:'<code>$x^2^3$</code>', okc:false, why:''},
+      {t:'<code>$\\farc{1}{2}$</code>', okc:false, why:''},
+      {t:'<code>x_1</code> outside math mode', okc:false, why:''}
+    ]
+  }}
+]},
+
+/* ================= LESSON 3 : SPECIAL CHARACTERS ================= */
+{ id:'l3', part:1, num:'3', title:'Special characters', kicker:'Part 1 · The language',
+  lede:'Five ordinary-looking characters have secret jobs in LaTeX. Meet them before they meet you.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>The five troublemakers</h3>
+   <table class="facts">
+   <tr><th>Character</th><th>Secret job</th><th>To print it, type</th></tr>
+   <tr><td><code>%</code></td><td>starts a comment, rest of line vanishes silently</td><td><code>\%</code></td></tr>
+   <tr><td><code>&amp;</code></td><td>separates table cells, errors elsewhere</td><td><code>\&amp;</code></td></tr>
+   <tr><td><code>_</code></td><td>subscript, only legal in math mode</td><td><code>\_</code></td></tr>
+   <tr><td><code>$</code></td><td>opens or closes math mode</td><td><code>\$</code></td></tr>
+   <tr><td><code>#</code></td><td>macro parameter, errors in normal text</td><td><code>\#</code></td></tr>
+   </table>
+   <p>The percent sign is the most dangerous of the five because it never complains. Your sentence just quietly loses its tail.</p>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-3-1', badge:'Exercise 3.1', title:'Rescue this sentence', mode:'fragment',
+    prompt:String.raw`This sentence should print exactly as: <b>Training reached 95% accuracy &amp; the file model_final.ckpt sold for $20.</b> Right now it is a minefield. Fix one error, recompile, fix the next. That loop is exactly how real debugging feels.`,
+    starter: String.raw`Training reached 95% accuracy & the file model_final.ckpt sold for $20.
+`,
+    check:function(src,res){
+      var t=textOf(res.html);
+      if(t.indexOf('95% accuracy & the file model_final.ckpt sold for $20')===-1)
+        return fail('The preview does not show the full sentence yet. Every special character needs its backslash.');
+      return ok();
+    },
+    hints:['Work left to right. The % is eating the rest of the line without any error.',
+           'Four characters need escaping here: % & _ and $.'],
+    solution: String.raw`Training reached 95\% accuracy \& the file model\_final.ckpt sold for \$20.`,
+    solNote:'One backslash each. Notice the % never produced an error, it just swallowed your words.'
+  }},
+  {type:'quiz', quiz:{
+    id:'qz-3-1',
+    q:'Your table row has a bare & in normal paragraph text: Me & you. What does the log say?',
+    choices:[
+      {t:'Misplaced alignment tab character &.', okc:true,
+       why:'That message means & tried to do its table job outside a table. Escape it as \\& in normal text.'},
+      {t:'Undefined control sequence', okc:false, why:''},
+      {t:'Missing $ inserted', okc:false, why:''},
+      {t:'Nothing, it prints fine', okc:false, why:''}
+    ]
+  }}
+]},
+
+/* ================= LESSON 4 : LISTS ================= */
+{ id:'l4', part:1, num:'4', title:'Lists', kicker:'Part 1 · The language',
+  lede:'Bullets, numbers, and lists inside lists. LaTeX handles the numbering so you never renumber anything by hand again.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>Two environments</h3>
+<pre class="codeblock"><span class="k">\begin{itemize}</span>            <span class="c">% bullets</span>
+    \item Coffee
+    \item More coffee
+<span class="k">\end{itemize}</span>
+
+<span class="k">\begin{enumerate}</span>          <span class="c">% numbers, automatic</span>
+    \item First
+    \item Second
+<span class="k">\end{enumerate}</span></pre>
+   <p>Nest one inside the other and LaTeX adjusts the style automatically. Each <code>\item</code> is one entry.
+   Forget an <code>\end</code> or close with the wrong name and the compiler will name the exact mismatch.</p>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-4-1', badge:'Exercise 4.1', title:'World Cup nesting', mode:'fragment',
+    prompt:String.raw`Build a <b>numbered</b> list of three teams: Argentina, France, Morocco. Under Argentina, nest a <b>bulleted</b> list with two players: Messi and Martinez. Match the target.`,
+    targetFrag: String.raw`\begin{enumerate}
+    \item Argentina
+    \begin{itemize}
+        \item Messi
+        \item Martinez
+    \end{itemize}
+    \item France
+    \item Morocco
+\end{enumerate}`,
+    starter: String.raw`% enumerate for the teams, itemize nested under Argentina
+`,
+    check:function(src,res){
+      if(!/\\begin\{enumerate\}[\s\S]*\\begin\{itemize\}[\s\S]*\\end\{itemize\}[\s\S]*\\end\{enumerate\}/.test(src))
+        return fail('The itemize must open and close fully inside the enumerate.');
+      if((src.match(/\\item/g)||[]).length<5) return fail('Five \\item entries in total: three teams and two players.');
+      var t=textOf(res.html);
+      if(!(/Argentina/.test(t)&&/Messi/.test(t)&&/Martinez/.test(t)&&/France/.test(t)&&/Morocco/.test(t)))
+        return fail('All three teams and both players should appear in the output.');
+      return ok();
+    },
+    hints:['Open enumerate, \\item Argentina, then immediately open the itemize before the next team.',
+           'Both environments need their own \\end, in the right order. Inner closes first.'],
+    solution: String.raw`\begin{enumerate}
+    \item Argentina
+    \begin{itemize}
+        \item Messi
+        \item Martinez
+    \end{itemize}
+    \item France
+    \item Morocco
+\end{enumerate}`,
+    solNote:'Inner environments always close before outer ones. Think of them as nested boxes.'
+  }},
+  {type:'quiz', quiz:{
+    id:'qz-4-1',
+    q:'You typed \\begin{itemize} but closed with \\end{enumerate}. What does LaTeX say?',
+    choices:[
+      {t:'<code>\\begin{itemize} ended by \\end{enumerate}</code>', okc:true,
+       why:'The log literally names both environments. When you see this message, one of the two names is wrong, or an \\end is missing in between.'},
+      {t:'<code>Undefined control sequence</code>', okc:false, why:''},
+      {t:'It compiles, LaTeX guesses what you meant', okc:false, why:''},
+      {t:'<code>Missing $ inserted</code>', okc:false, why:''}
+    ]
+  }}
+]},
+
+/* ================= LESSON 5 : TEXT FORMATTING ================= */
+{ id:'l5', part:1, num:'5', title:'Text formatting', kicker:'Part 1 · The language',
+  lede:'Bold, italics, and combinations. Small commands you will use in every document forever.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <table class="facts">
+   <tr><th>Command</th><th>Result</th></tr>
+   <tr><td><code>\textbf{...}</code></td><td><strong>bold</strong></td></tr>
+   <tr><td><code>\textit{...}</code></td><td><em>italic</em></td></tr>
+   <tr><td><code>\underline{...}</code></td><td><u>underlined</u></td></tr>
+   <tr><td><code>\textbf{\textit{...}}</code></td><td><strong><em>nest them for both</em></strong></td></tr>
+   <tr><td><code>\texttt{...}</code></td><td><code>typewriter, for code</code></td></tr>
+   </table>
+   <p>Old tutorials will show you <code>{\bf ...}</code> and <code>{\it ...}</code>. Those are from the 1980s.
+   AI assistants love to generate them too. Use the <code>\text..</code> versions.</p>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-5-1', badge:'Exercise 5.1', title:'Reproduce the sentence', mode:'fragment',
+    prompt:'Recreate the target sentence exactly, formatting included.',
+    targetFrag: String.raw`\LaTeX{} makes \textbf{bold} claims, \textit{subtle} points, and \textbf{\textit{very serious}} statements that are \underline{underlined} by evidence.`,
+    starter: String.raw`% One sentence, four formatting commands.
+`,
+    check:function(src,res){
+      if(!/\\textbf\{bold\}/.test(src)) return fail('The word "bold" should be wrapped in \\textbf{...}.');
+      if(!/\\textit\{subtle\}/.test(src)) return fail('The word "subtle" should be wrapped in \\textit{...}.');
+      if(!/\\textbf\{\s*\\textit\{\s*very serious\s*\}\s*\}|\\textit\{\s*\\textbf\{\s*very serious\s*\}\s*\}/.test(src))
+        return fail('"very serious" needs bold AND italic. Nest one command inside the other.');
+      if(!/\\underline\{underlined\}/.test(src)) return fail('The word "underlined" should be wrapped in \\underline{...}.');
+      return ok();
+    },
+    hints:['Nesting means one command living inside the braces of another.','Do not forget the \\LaTeX{} logo at the start.'],
+    solution: String.raw`\LaTeX{} makes \textbf{bold} claims, \textit{subtle} points, and \textbf{\textit{very serious}} statements that are \underline{underlined} by evidence.`
+  }}
+]},
+
+/* ================= LESSON 6 : TABLES ================= */
+{ id:'l6', part:1, num:'6', title:'Tables', kicker:'Part 1 · The language',
+  lede:'The tabular environment. Three letters for alignment, & between cells, \\\\ to end a row. That is 90% of every table you will ever write.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>Anatomy of a tabular</h3>
+<pre class="codeblock"><span class="k">\begin{tabular}{|l|c|}</span>   <span class="c">% l = left column, c = centered, | = vertical line</span>
+    \hline
+    Player &amp; Goals \\    <span class="c">% & separates cells, \\ ends the row</span>
+    \hline
+    Messi  &amp; 8 \\
+    Mbappe &amp; 7 \\
+    \hline
+<span class="k">\end{tabular}</span></pre>
+   <ul>
+     <li>The column spec <code>{|l|c|}</code> says two columns, left and centered, with lines between.</li>
+     <li><code>\hline</code> draws a horizontal line. Two in a row make a double line.</li>
+     <li>Forget a <code>\\</code> at a row end and the next row piles into it. The error says <i>Extra alignment tab has been changed to \cr</i>, which is compiler-speak for &ldquo;too many &amp; in one row&rdquo;.</li>
+   </ul>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-6-1', badge:'Exercise 6.1', title:'Top scorers table', mode:'fragment',
+    prompt:String.raw`Build the target table. Columns: Player (left aligned) and Goals (centered), with vertical lines around both. Horizontal lines above the header, below the header, and at the bottom. Data: Messi 8, Mbappe 7, Haaland 7, Kane 6.`,
+    targetFrag: String.raw`\begin{tabular}{|l|c|}
+    \hline
+    Player & Goals \\
+    \hline
+    Messi & 8 \\
+    Mbappe & 7 \\
+    Haaland & 7 \\
+    Kane & 6 \\
+    \hline
+\end{tabular}`,
+    starter: String.raw`\begin{tabular}{|l|c|}
+    % your rows here
+\end{tabular}
+`,
+    check:function(src,res){
+      if(!/\\begin\{tabular\}\s*\{\s*\|\s*l\s*\|\s*c\s*\|\s*\}/.test(src)) return fail('The column spec should be {|l|c|}. Left column, centered column, lines around both.');
+      if((src.match(/\\hline/g)||[]).length<3) return fail('Three \\hline rules: top, under the header, and bottom.');
+      var t=textOf(res.html);
+      if(!(/Messi/.test(t)&&/Mbappe/.test(t)&&/Haaland/.test(t)&&/Kane/.test(t))) return fail('All four players belong in the table.');
+      if(res.html.indexOf('<table')===-1) return fail('Something went wrong, no table was rendered.');
+      return ok();
+    },
+    hints:['Each row is: name & number \\\\','\\hline lines go on their own lines, before the rows they sit above.'],
+    solution: String.raw`\begin{tabular}{|l|c|}
+    \hline
+    Player & Goals \\
+    \hline
+    Messi & 8 \\
+    Mbappe & 7 \\
+    Haaland & 7 \\
+    Kane & 6 \\
+    \hline
+\end{tabular}`,
+    solNote:'Try deleting one \\\\ and recompiling, just to meet the "Extra alignment tab" error on purpose. Meeting errors on purpose is free experience.'
+  }},
+  {type:'quiz', quiz:{
+    id:'qz-6-1',
+    q:'Inside a tabular, what separates cells and what ends a row?',
+    choices:[
+      {t:'<code>&amp;</code> separates cells, <code>\\\\</code> ends the row', okc:true,
+       why:'And \\hline draws the horizontal lines. Those three symbols are the entire table language.'},
+      {t:'<code>,</code> separates cells, <code>;</code> ends the row', okc:false, why:''},
+      {t:'<code>|</code> separates cells, <code>\\n</code> ends the row', okc:false, why:''},
+      {t:'Tab key separates cells, Enter ends the row', okc:false, why:''}
+    ]
+  }}
+]},
+
+/* ================= LESSON 7 : DEBUGGING ================= */
+{ id:'l7', part:1, num:'7', title:'Debug like a pro', kicker:'Part 1 · The language',
+  lede:'Your documents will break. Everyone&rsquo;s do. The skill is reading the first error calmly and knowing the three classics on sight.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>The three errors you will meet first</h3>
+   <table class="facts">
+   <tr><th>The log says</th><th>It means</th></tr>
+   <tr><td><code>Undefined control sequence</code></td><td>misspelled command</td></tr>
+   <tr><td><code>Missing $ inserted</code></td><td>math stuff outside math mode</td></tr>
+   <tr><td><code>\begin{...} ended by \end{...}</code></td><td>mismatched environment</td></tr>
+   </table>
+   <p>Two rules. <b>Read the first error, not the last.</b> Errors cascade, and everything after the first one may
+   be noise. <b>Watch for silent bugs too.</b> Some mistakes compile fine and just print the wrong thing, so always
+   look at the output with your own eyes.</p>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-7-1', badge:'Boss fight', title:'Five planted bugs', mode:'doc',
+    prompt:String.raw`This document contains exactly <b>five</b> planted bugs. Three show up in the log. Two compile fine and silently wreck the output, so compare the preview against what the text claims. Fix all five. First clean, correct PDF wins.`,
+    starter: String.raw`\documentclass{article}
+
+\title{Five Facts About \LaTeX}
+\author{A Careful Debugger}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{The Facts}
+
+\begin{itemize}
+    \item \LaTeX{} was released in 1984 and still runs 100% of serious math publishing.
+    \item Reading the \textbf{first error in the log is the whole trick to debugging.
+    \item Most papers use fewer than $2^10$ distinct commands.
+    \item A fraction like \farc{1}{2} is only ever one command away.
+    \item You are training your debugging muscles right now.
+\end{enumerate}
+
+\end{document}
+`,
+    check:function(src,res){
+      if(/\\farc/.test(src)) return fail('One typo is still in there. The log names it.');
+      if(!/\\end\{itemize\}/.test(src)) return fail('The list opens as itemize, so it must close as itemize.');
+      if(!/\\textbf\{first error\}/.test(src)) return fail('Bold exactly the words "first error", and make sure the braces close.');
+      if(!/100\\%/.test(src)) return fail('Silent bug: look at the first fact in the preview. Where did the rest of the sentence go? A percent sign is misbehaving.');
+      if(!hasMath(src,'2^{10}')) return fail('Silent bug: look closely at the exponent in fact three. Is that really 2 to the power 10 in the preview?');
+      if(!hasMath(src,'\\frac{1}{2}')) return fail('The fraction should be \\frac{1}{2}, in math mode.');
+      var t=textOf(res.html);
+      if(t.indexOf('100% of serious math publishing')===-1) return fail('The first fact should print all the way to "publishing".');
+      return ok();
+    },
+    hints:['Fix the loud errors first, one compile at a time. Then hunt the silent ones by reading the preview.',
+           'The three loud ones: a misspelled command, an unclosed brace, and a mismatched environment.',
+           'The two silent ones: a hungry percent sign and an exponent missing its braces.'],
+    solution: String.raw`\documentclass{article}
+
+\title{Five Facts About \LaTeX}
+\author{A Careful Debugger}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{The Facts}
+
+\begin{itemize}
+    \item \LaTeX{} was released in 1984 and still runs 100\% of serious math publishing.
+    \item Reading the \textbf{first error} in the log is the whole trick to debugging.
+    \item Most papers use fewer than $2^{10}$ distinct commands.
+    \item A fraction like $\frac{1}{2}$ is only ever one command away.
+    \item You are training your debugging muscles right now.
+\end{itemize}
+
+\end{document}`,
+    solNote:'The five: \\farc typo, unclosed \\textbf brace, \\end{enumerate} on an itemize, a hungry %, and 2^10 without braces. If you found all five, you are ready for anything Overleaf throws at you.'
+  }}
+]},
+
+/* ================= LESSON 8 : ANATOMY (part 2 opens) ================= */
+{ id:'l8', part:2, num:'8', title:'Anatomy of a paper', kicker:'Part 2 · Write a research paper',
+  lede:'Every research paper is the same eight pieces. Click each pin on the mini paper to see the LaTeX behind it. Visit all eight.',
+  banner:{title:'Part 2. Write a research paper', text:'Everything you drilled in Part 1 now gets a job. Over the next lessons you will build every organ of a real paper, then assemble a complete one in the capstone. This is the part that makes people take your work seriously.'},
+  blocks:[
+  {type:'widget', name:'anatomy'}
+]},
+
+/* ================= LESSON 9 : STRUCTURE ================= */
+{ id:'l9', part:2, num:'9', title:'Title, abstract, sections', kicker:'Part 2 · Write a research paper',
+  lede:'The paper&rsquo;s skeleton: a title block, an abstract, numbered sections, and a table of contents that maintains itself.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>Four commands, one table of contents</h3>
+<pre class="codeblock"><span class="k">\title</span>{The Effect of Learning Rate on Test Accuracy}
+<span class="k">\author</span>{Your Name}
+<span class="k">\date</span>{\today}
+...
+<span class="k">\maketitle</span>              <span class="c">% prints the block above</span>
+<span class="k">\tableofcontents</span>        <span class="c">% builds itself from your sections</span>
+<span class="k">\section</span>{Introduction}  <span class="c">% numbered 1</span>
+<span class="k">\subsection</span>{Motivation} <span class="c">% numbered 1.1</span></pre>
+   <p>You never type a section number. Add a section in the middle of the paper and every number after it,
+   plus the whole table of contents, updates itself. In Overleaf the table of contents needs <b>two</b> compiles,
+   the first collects the headings, the second prints them. Here in the lab it updates instantly.</p>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-9-1', badge:'Exercise 9.1', title:'Build the paper skeleton', mode:'doc',
+    prompt:String.raw`Create the full front matter: title block (title, your name, today's date, <code>\maketitle</code>), an <code>abstract</code> environment with a sentence or two, a <code>\tableofcontents</code>, and four sections: Introduction, Method, Results, Conclusion, with a subsection called Dataset inside Method.`,
+    starter: String.raw`\documentclass{article}
+
+% Title, author, and date go up here in the preamble.
+
+\begin{document}
+
+% 1. \maketitle
+% 2. abstract environment
+% 3. \tableofcontents
+% 4. The four sections, plus \subsection{Dataset} inside Method.
+
+\end{document}
+`,
+    check:function(src,res){
+      if(!/\\maketitle/.test(src)) return fail('Print the title block with \\maketitle. It needs \\title{...} defined first.');
+      if(!/\\begin\{abstract\}[\s\S]*\\end\{abstract\}/.test(src)) return fail('Add an abstract environment with a sentence inside.');
+      if(!/\\tableofcontents/.test(src)) return fail('Add \\tableofcontents. Mind the spelling, plural.');
+      if((src.match(/\\section\{/g)||[]).length<4) return fail('Four \\section commands: Introduction, Method, Results, Conclusion.');
+      if(!/\\subsection\{\s*Dataset\s*\}/.test(src)) return fail('Add \\subsection{Dataset} inside the Method section.');
+      var t=textOf(res.html);
+      if(t.indexOf('Contents')===-1) return fail('The table of contents should render. Check the command spelling.');
+      return ok();
+    },
+    hints:['\\title, \\author and \\date belong in the preamble, before \\begin{document}.',
+           'The abstract is an environment, \\begin{abstract} ... \\end{abstract}.'],
+    solution: String.raw`\documentclass{article}
+
+\title{The Effect of Learning Rate on Test Accuracy}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We study how the learning rate changes what a small model learns,
+and how fast it learns it.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+\section{Method}
+\subsection{Dataset}
+\section{Results}
+\section{Conclusion}
+
+\end{document}`,
+    solNote:'Watch the table of contents in the preview. It numbered everything for you, including 2.1 for Dataset.'
+  }}
+]},
+
+/* ================= LESSON 10 : FIGURES ================= */
+{ id:'l10', part:2, num:'10', title:'Figures', kicker:'Part 2 · Write a research paper',
+  lede:'Papers live and die by their figures. Learn the figure block once and reuse it for the rest of your career.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>The standard figure block</h3>
+<pre class="codeblock"><span class="k">\usepackage{graphicx}</span>   <span class="c">% in the preamble, once</span>
+
+<span class="k">\begin{figure}</span>[h]       <span class="c">% h asks LaTeX to place it Here</span>
+    \centering
+    \includegraphics[width=0.7\textwidth]{accuracy.png}
+    \caption{Test accuracy over training.}
+    \label{fig:acc}       <span class="c">% label AFTER caption, always</span>
+<span class="k">\end{figure}</span>
+
+Figure \ref{fig:acc} shows the trend.</pre>
+   <p><code>width=0.7\textwidth</code> means 70% of the text width, which scales perfectly on any paper size.
+   The <code>figure</code> wrapper gives you the numbered caption and lets <code>\ref</code> point at it.
+   Play with the machine below, then build one yourself.</p>
+   <div class="note"><b>This lab ships two images.</b> <code>accuracy.png</code> (a results chart) and <code>setup.png</code> (a pipeline diagram). Ask for any other file name and you will meet the famous <i>File not found</i> error.</div>
+   </div>`},
+  {type:'widget', name:'figplay'},
+  {type:'exercise', ex:{
+    id:'ex-10-1', badge:'Exercise 10.1', title:'Your first real figure', mode:'doc',
+    prompt:String.raw`Build a Results section containing a proper figure: centered, <code>accuracy.png</code> at <code>width=0.7\textwidth</code>, a caption, and <code>\label{fig:acc}</code>. Then reference it from a sentence with <code>\ref{fig:acc}</code>. One catch: the package that provides <code>\includegraphics</code> is not loaded yet.`,
+    starter: String.raw`\documentclass{article}
+% Something belongs here. The compiler will remind you.
+
+\begin{document}
+
+\section{Results}
+
+Accuracy climbs quickly, then flattens out.
+
+% figure environment here
+
+% then a sentence using \ref{fig:acc}
+
+\end{document}
+`,
+    check:function(src,res){
+      if(!/\\usepackage\{[^}]*graphicx[^}]*\}/.test(src)) return fail('Load the graphicx package in the preamble.');
+      if(!/\\begin\{figure\}/.test(src)) return fail('Wrap the image in a figure environment so it gets a number and caption.');
+      if(!/width\s*=\s*0?\.7\s*\\textwidth/.test(src)) return fail('Set the width option to 0.7\\textwidth.');
+      if(!/\{\s*accuracy(\.png)?\s*\}/.test(src)) return fail('The image file is accuracy.png.');
+      if(!/\\caption\{[^}]+\}/.test(src)) return fail('Give the figure a caption.');
+      if(!/\\label\{fig:acc\}/.test(src)) return fail('Add \\label{fig:acc}, placed after the caption.');
+      if(!/\\ref\{fig:acc\}/.test(src)) return fail('Reference the figure in a sentence with \\ref{fig:acc}.');
+      if(res.warnings.length>0) return fail('Almost. The log has a warning: '+res.warnings[0]);
+      if(res.html.indexOf('<img')===-1) return fail('No image rendered. Check the file name.');
+      return ok();
+    },
+    hints:['The error tells you \\includegraphics is undefined. That means a missing package.',
+           'Order inside the figure: \\centering, \\includegraphics, \\caption, \\label.'],
+    solution: String.raw`\documentclass{article}
+\usepackage{graphicx}
+
+\begin{document}
+
+\section{Results}
+
+Accuracy climbs quickly, then flattens out.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{accuracy.png}
+    \caption{Test accuracy over 20 epochs of training.}
+    \label{fig:acc}
+\end{figure}
+
+Figure \ref{fig:acc} shows the full trend.
+
+\end{document}`,
+    solNote:'If \\label sits before \\caption, the reference silently points at the section instead of the figure. Nasty one. Label after caption, always.'
+  }}
+]},
+
+/* ================= LESSON 11 : PRO TABLES ================= */
+{ id:'l11', part:2, num:'11', title:'Publication tables', kicker:'Part 2 · Write a research paper',
+  lede:'Journals do not use vertical lines. The booktabs package and three rules turn a spreadsheet-looking grid into a table that belongs in a paper.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>Grid tables vs. booktabs</h3>
+   <p>Look at any published paper. The tables have exactly three horizontal rules and zero vertical ones.
+   The <code>booktabs</code> package provides them with proper spacing.</p>
+<pre class="codeblock"><span class="k">\usepackage{booktabs}</span>
+
+<span class="k">\begin{table}</span>[h]
+    \centering
+    \caption{Results by learning rate.}   <span class="c">% for tables, caption goes ABOVE</span>
+    \label{tab:lr}
+    <span class="k">\begin{tabular}</span>{lcc}                 <span class="c">% no | bars at all</span>
+        \toprule
+        Learning rate &amp; Accuracy &amp; Epochs \\
+        \midrule
+        0.01 &amp; 92.4\% &amp; 14 \\
+        \bottomrule
+    <span class="k">\end{tabular}</span>
+<span class="k">\end{table}</span></pre>
+   <p>Convention worth memorizing: figure captions go <b>below</b> the figure, table captions go <b>above</b> the table.</p>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-11-1', badge:'Exercise 11.1', title:'Rescue this table from 2009', mode:'doc',
+    prompt:String.raw`The document contains a gridded table that would make a journal editor wince. Rebuild it publication style: load <code>booktabs</code>, wrap the tabular in a <code>table</code> environment with <code>\centering</code>, put the caption <b>above</b> with <code>\label{tab:lr}</code> after it, use columns <code>{lcc}</code> with no vertical bars, and replace every <code>\hline</code> with <code>\toprule</code>, <code>\midrule</code>, <code>\bottomrule</code>. Finish with a sentence using <code>\ref{tab:lr}</code>.`,
+    starter: String.raw`\documentclass{article}
+% Load the package for professional rules here.
+
+\begin{document}
+
+\section{Results}
+
+\begin{tabular}{|l|c|c|}
+\hline
+Learning rate & Final accuracy & Epochs to 90\% \\
+\hline
+0.1 & 88.1\% & never \\
+0.01 & 92.4\% & 14 \\
+0.001 & 90.7\% & 19 \\
+\hline
+\end{tabular}
+
+% a sentence with \ref{tab:lr}
+
+\end{document}
+`,
+    check:function(src,res){
+      if(!/\\usepackage\{[^}]*booktabs[^}]*\}/.test(src)) return fail('Load the booktabs package in the preamble.');
+      if(!/\\begin\{table\}/.test(src)) return fail('Wrap everything in a table environment so it gets a number.');
+      if(!(/\\toprule/.test(src)&&/\\midrule/.test(src)&&/\\bottomrule/.test(src))) return fail('Use all three rules: \\toprule, \\midrule after the header, \\bottomrule.');
+      if(/\\hline/.test(src)) return fail('No \\hline left. The three booktabs rules replace them all.');
+      if(/\{\s*\|/.test(src)||/\|\s*\}/.test(src)||/\{[lcr|]*\|[lcr|]*\}/.test(src)) return fail('Publication tables have no vertical bars. The column spec is just {lcc}.');
+      var capIx=src.indexOf('\\caption'), tabIx=src.indexOf('\\begin{tabular}');
+      if(capIx===-1) return fail('Add a caption.');
+      if(capIx>tabIx) return fail('Table captions go ABOVE the tabular. Move \\caption before \\begin{tabular}.');
+      if(!/\\label\{tab:lr\}/.test(src)) return fail('Add \\label{tab:lr} right after the caption.');
+      if(!/\\ref\{tab:lr\}/.test(src)) return fail('Reference the table in a sentence with \\ref{tab:lr}.');
+      if(res.warnings.length>0) return fail('Almost. The log has a warning: '+res.warnings[0]);
+      return ok();
+    },
+    hints:['Structure: table > centering > caption > label > tabular.',
+           'Inside the tabular, only the three booktabs rules and the data rows remain.'],
+    solution: String.raw`\documentclass{article}
+\usepackage{booktabs}
+
+\begin{document}
+
+\section{Results}
+
+\begin{table}[h]
+    \centering
+    \caption{Final accuracy by learning rate.}
+    \label{tab:lr}
+    \begin{tabular}{lcc}
+        \toprule
+        Learning rate & Final accuracy & Epochs to 90\% \\
+        \midrule
+        0.1 & 88.1\% & never \\
+        0.01 & 92.4\% & 14 \\
+        0.001 & 90.7\% & 19 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Table \ref{tab:lr} shows that 0.01 wins on both counts.
+
+\end{document}`,
+    solNote:'Compare the preview with the gridded original. Same data, completely different level of credibility.'
+  }}
+]},
+
+/* ================= LESSON 12 : CROSS-REFERENCES ================= */
+{ id:'l12', part:2, num:'12', title:'Cross-references', kicker:'Part 2 · Write a research paper',
+  lede:'Numbers that fix themselves. \\label plants a flag, \\ref points at it, and LaTeX keeps every number correct no matter how much you restructure.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>Plant a flag, point at it</h3>
+<pre class="codeblock">\section{Results}
+\label{sec:results}      <span class="c">% flag planted, named sec:results</span>
+...
+As shown in Section \ref{sec:results} ...   <span class="c">% prints the right number, forever</span></pre>
+   <p>Labels work on sections, equations, figures and tables. The names are free text, but everyone uses
+   prefixes: <code>sec:</code>, <code>eq:</code>, <code>fig:</code>, <code>tab:</code>. A <code>\ref</code> to a label that
+   does not exist prints <b>??</b> and a warning, not an error. In Overleaf, remember it can take two compiles to settle.</p>
+   </div>`},
+  {type:'widget', name:'refdemo'},
+  {type:'exercise', ex:{
+    id:'ex-12-1', badge:'Exercise 12.1', title:'Repair the broken references', mode:'fragment',
+    prompt:String.raw`This fragment compiles, but the preview is full of <b>??</b> because the labels were never planted. Add <code>\label{sec:method}</code> right after the Method heading and <code>\label{eq:loss}</code> inside the equation, and watch the ?? turn into real numbers.`,
+    starter: String.raw`\section{Introduction}
+Our method is defined in Section \ref{sec:method}, and the
+training objective appears in Equation \ref{eq:loss}.
+
+\section{Method}
+% plant the section flag here
+
+The model minimizes
+\begin{equation}
+    L(\theta) = -\sum_{i=1}^{n} \log p_\theta(y_i)
+    % plant the equation flag here
+\end{equation}
+`,
+    check:function(src,res){
+      if(!/\\label\{sec:method\}/.test(src)) return fail('Add \\label{sec:method} just after the \\section{Method} line.');
+      if(!/\\begin\{equation\}[\s\S]*\\label\{eq:loss\}[\s\S]*\\end\{equation\}/.test(src)) return fail('Add \\label{eq:loss} inside the equation environment.');
+      if(res.warnings.length>0) return fail('Still a warning in the log: '+res.warnings[0]);
+      if(textOf(res.html).indexOf('??')>-1) return fail('There is still a ?? in the preview.');
+      return ok();
+    },
+    hints:['A label attaches to the most recent numbered thing, so its position matters.',
+           'For equations the label goes inside the environment, anywhere before \\end{equation}.'],
+    solution: String.raw`\section{Introduction}
+Our method is defined in Section \ref{sec:method}, and the
+training objective appears in Equation \ref{eq:loss}.
+
+\section{Method}
+\label{sec:method}
+
+The model minimizes
+\begin{equation}
+    L(\theta) = -\sum_{i=1}^{n} \log p_\theta(y_i)
+    \label{eq:loss}
+\end{equation}`,
+    solNote:'Notice the Introduction referenced things that appear later in the document. Two-pass compilation makes that legal.'
+  }}
+]},
+
+/* ================= LESSON 13 : CITATIONS ================= */
+{ id:'l13', part:2, num:'13', title:'Citations and BibTeX', kicker:'Part 2 · Write a research paper',
+  lede:'Never format a reference by hand. Describe each source once in a .bib file, then \\cite it wherever you need. LaTeX numbers and formats everything.',
+  blocks:[
+  {type:'prose', html: String.raw`
+   <div class="card prose">
+   <h3>One entry, anatomy included</h3>
+<pre class="codeblock"><span class="k">@article</span>{lecun2015deep,        <span class="c">% type + your citation key</span>
+  author  = {LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey},
+  title   = {Deep Learning},
+  journal = {Nature},
+  year    = {2015}
+}</pre>
+   <p>The key <code>lecun2015deep</code> is the handle you cite with. In the paper you write
+   <code>\cite{lecun2015deep}</code> and finish the document with two commands:</p>
+<pre class="codeblock">\bibliographystyle{plain}    <span class="c">% how references look</span>
+\bibliography{references}    <span class="c">% which .bib file to read</span></pre>
+   <p>Only cited entries appear in the reference list, numbered by first appearance. Citing a key that
+   is not in the file prints <b>[?]</b> with a warning. This lab has a ready-made
+   <code>references.bib</code> with three entries, shown under the editor in the exercise.</p>
+   </div>`},
+  {type:'exercise', ex:{
+    id:'ex-13-1', badge:'Exercise 13.1', title:'Cite your sources', mode:'doc',
+    prompt:String.raw`Using the <code>references.bib</code> shown below the editor: cite the transformer paper at the end of the first sentence, cite the Nature survey <b>and</b> the MIT Press book together (one <code>\cite</code>, keys separated by a comma) at the end of the second, then print the reference list with the two bibliography commands.`,
+    bibPanel:true,
+    starter: String.raw`\documentclass{article}
+
+\begin{document}
+
+\section{Related Work}
+
+Modern language models build on the transformer architecture.
+
+Deep learning has a much longer history.
+
+% reference list commands go here
+
+\end{document}
+`,
+    check:function(src,res){
+      if(!/\\cite\{\s*vaswani2017attention\s*\}/.test(src)) return fail('Cite the transformer paper with its key, vaswani2017attention.');
+      if(!/\\cite\{[^}]*lecun2015deep[^}]*goodfellow2016deep[^}]*\}|\\cite\{[^}]*goodfellow2016deep[^}]*lecun2015deep[^}]*\}/.test(src))
+        return fail('The survey and the book go together in ONE \\cite, keys separated by a comma.');
+      if(!/\\bibliographystyle\{[^}]+\}/.test(src)) return fail('Add \\bibliographystyle{plain}.');
+      if(!/\\bibliography\{\s*references\s*\}/.test(src)) return fail('Add \\bibliography{references}. No .bib extension in the command.');
+      if(res.warnings.length>0) return fail('The log still has a warning: '+res.warnings[0]);
+      if(textOf(res.html).indexOf('References')===-1) return fail('The reference list did not render.');
+      return ok();
+    },
+    hints:['A multi-citation looks like \\cite{keyone, keytwo}.',
+           'The two bibliography commands go at the end of the document, before \\end{document}.'],
+    solution: String.raw`\documentclass{article}
+
+\begin{document}
+
+\section{Related Work}
+
+Modern language models build on the transformer
+architecture \cite{vaswani2017attention}.
+
+Deep learning has a much longer
+history \cite{lecun2015deep, goodfellow2016deep}.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}`,
+    solNote:'Notice the numbering: [1] for the first citation, [2, 3] for the pair, and the reference list built itself in that order.'
+  }}
+]},
+
+/* ================= LESSON 14 : CAPSTONE ================= */
+{ id:'l14', part:2, num:'14', title:'Capstone: assemble a paper', kicker:'Part 2 · Write a research paper',
+  lede:'Everything, together, in one document. Six steps take you from an empty file to a complete mini research paper you can download and keep.',
+  blocks:[
+  {type:'widget', name:'capstone'}
+]}
+];
+
+/* ---------------- capstone data ---------------- */
+var CAPSTONE = {
+  starter: String.raw`% ============================================================
+%  MY FIRST RESEARCH PAPER
+%  Work through the steps on the left, top to bottom.
+%  The preview compiles as you type. Check off each step.
+% ============================================================
+
+% ---- Step 1 goes here: class, packages, title ----
+
+
+\begin{document}
+
+% ---- Step 1 continued: print the title block ----
+
+
+% ---- Step 2: abstract, then Introduction with a citation ----
+
+
+% ---- Step 3: Method section with a labeled equation ----
+
+
+% ---- Step 4: Results section with the figure ----
+
+
+% ---- Step 5: the results table ----
+
+
+% ---- Step 6: Conclusion, then the reference list ----
+
+
+\end{document}
+`,
+  steps:[
+  { title:'Class, packages, title block',
+    body:String.raw`Start the preamble: <code>\documentclass{article}</code>, load <code>graphicx</code>, <code>booktabs</code> and <code>amsmath</code>, then <code>\title{...}</code>, <code>\author{...}</code>, <code>\date{\today}</code>. Inside the document, print it with <code>\maketitle</code>. The preview stops erroring the moment step 1 is complete.`,
+    check:function(src,res){
+      if(!res) return fail('It has to compile first. Read the log.');
+      if(!/\\documentclass\s*(\[[^\]]*\])?\s*\{\s*article\s*\}/.test(src)) return fail('Start with \\documentclass{article} at the very top.');
+      if(!(/\\usepackage\{[^}]*graphicx[^}]*\}/.test(src)&&/\\usepackage\{[^}]*booktabs[^}]*\}/.test(src)&&/\\usepackage\{[^}]*amsmath[^}]*\}/.test(src)))
+        return fail('Load all three packages: graphicx, booktabs, amsmath.');
+      if(!/\\title\{[^}]+\}/.test(src)) return fail('Give the paper a \\title{...}.');
+      if(!/\\author\{[^}]+\}/.test(src)) return fail('Put your name in \\author{...}.');
+      if(!/\\maketitle/.test(src)) return fail('Print the title block with \\maketitle inside the document.');
+      return ok();
+    },
+    solution:String.raw`\documentclass{article}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\title{The Effect of Learning Rate on Test Accuracy}
+\author{Your Name}
+\date{\today}
+
+% ...and right after \begin{document}:
+\maketitle`},
+  { title:'Abstract and introduction',
+    body:String.raw`Add an <code>abstract</code> environment with two or three sentences, then <code>\section{Introduction}</code> with a paragraph that ends in a citation of the transformer paper, <code>\cite{vaswani2017attention}</code>.`,
+    check:function(src,res){
+      if(!res) return fail('It has to compile first. Read the log.');
+      if(!/\\begin\{abstract\}[\s\S]*\\end\{abstract\}/.test(src)) return fail('Add the abstract environment.');
+      if(!/\\section\{\s*Introduction\s*\}/.test(src)) return fail('Add \\section{Introduction}.');
+      if(!/\\cite\{\s*vaswani2017attention\s*\}/.test(src)) return fail('End the introduction with \\cite{vaswani2017attention}.');
+      return ok();
+    },
+    solution:String.raw`\begin{abstract}
+We train a small classifier at three learning rates and measure
+test accuracy. A rate of 0.01 reaches the highest accuracy in the
+fewest epochs.
+\end{abstract}
+
+\section{Introduction}
+Choosing a learning rate is the first decision in any training run.
+We measure its effect directly, following the experimental spirit
+of modern architectures \cite{vaswani2017attention}.`},
+  { title:'Method, with a numbered equation',
+    body:String.raw`Add <code>\section{Method}</code> and, inside an <code>equation</code> environment, the gradient descent update rule with <code>\label{eq:sgd}</code>. Then a sentence that points at it via <code>\ref{eq:sgd}</code>. The rule: theta gets updated by subtracting eta times the gradient.`,
+    check:function(src,res){
+      if(!res) return fail('It has to compile first. Read the log.');
+      if(!/\\section\{\s*Method\s*\}/.test(src)) return fail('Add \\section{Method}.');
+      if(!/\\begin\{equation\}[\s\S]*\\end\{equation\}/.test(src)) return fail('Put the update rule in an equation environment so it gets a number.');
+      if(!/\\begin\{equation\}[\s\S]*\\label\{eq:sgd\}[\s\S]*\\end\{equation\}/.test(src)) return fail('Add \\label{eq:sgd} inside the equation environment.');
+      if(!/\\theta/.test(src)||!/\\eta/.test(src)||!/\\nabla/.test(src)) return fail('The rule needs \\theta, \\eta, and \\nabla L.');
+      if(!/\\ref\{eq:sgd\}/.test(src)) return fail('Reference the equation in a sentence with \\ref{eq:sgd}.');
+      return ok();
+    },
+    solution:String.raw`\section{Method}
+We train with stochastic gradient descent. Each step follows
+Equation \ref{eq:sgd}.
+\begin{equation}
+    \theta_{t+1} = \theta_t - \eta \, \nabla L(\theta_t)
+    \label{eq:sgd}
+\end{equation}`},
+  { title:'The results figure',
+    body:String.raw`Add <code>\section{Results}</code> and the full figure block: <code>\centering</code>, <code>accuracy.png</code> at <code>width=0.8\textwidth</code>, a caption, <code>\label{fig:acc}</code>, and a sentence using <code>\ref{fig:acc}</code>.`,
+    check:function(src,res){
+      if(!res) return fail('It has to compile first. Read the log.');
+      if(!/\\section\{\s*Results\s*\}/.test(src)) return fail('Add \\section{Results}.');
+      if(!/\\begin\{figure\}[\s\S]*\\end\{figure\}/.test(src)) return fail('Add the figure environment.');
+      if(!/width\s*=\s*[\d.]+\s*\\textwidth/.test(src)) return fail('Size the image with width=0.8\\textwidth.');
+      if(!/\{\s*accuracy(\.png)?\s*\}/.test(src)) return fail('The chart image is accuracy.png.');
+      if(!/\\begin\{figure\}[\s\S]*\\caption\{[^}]+\}[\s\S]*\\end\{figure\}/.test(src)) return fail('Caption the figure.');
+      if(!/\\label\{fig:acc\}/.test(src)) return fail('Add \\label{fig:acc} after the caption.');
+      if(!/\\ref\{fig:acc\}/.test(src)) return fail('Point at the figure with \\ref{fig:acc} in a sentence.');
+      return ok();
+    },
+    solution:String.raw`\section{Results}
+Figure \ref{fig:acc} shows accuracy over training at the best rate.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{accuracy.png}
+    \caption{Test accuracy over 20 epochs at learning rate 0.01.}
+    \label{fig:acc}
+\end{figure}`},
+  { title:'The results table',
+    body:String.raw`Add a booktabs table comparing the three learning rates (0.1, 0.01, 0.001) with final accuracies (88.1\%, 92.4\%, 90.7\%). Caption above, <code>\label{tab:lr}</code>, all three rules, no vertical bars, and a sentence using <code>\ref{tab:lr}</code>.`,
+    check:function(src,res){
+      if(!res) return fail('It has to compile first. Read the log.');
+      if(!/\\begin\{table\}[\s\S]*\\end\{table\}/.test(src)) return fail('Wrap the tabular in a table environment.');
+      if(!(/\\toprule/.test(src)&&/\\midrule/.test(src)&&/\\bottomrule/.test(src))) return fail('Use the three booktabs rules.');
+      var tEnv=/\\begin\{table\}([\s\S]*?)\\end\{table\}/.exec(src);
+      if(tEnv){ var capIx=tEnv[1].indexOf('\\caption'), tabIx=tEnv[1].indexOf('\\begin{tabular}');
+        if(capIx===-1) return fail('Caption the table.');
+        if(tabIx>-1&&capIx>tabIx) return fail('Table captions go above the tabular.'); }
+      if(!/\\label\{tab:lr\}/.test(src)) return fail('Add \\label{tab:lr} after the caption.');
+      if(!/92\.4/.test(src)) return fail('Include the data. The winning accuracy is 92.4\\%.');
+      if(!/\\ref\{tab:lr\}/.test(src)) return fail('Reference the table with \\ref{tab:lr} in a sentence.');
+      return ok();
+    },
+    solution:String.raw`Table \ref{tab:lr} compares all three rates.
+\begin{table}[h]
+    \centering
+    \caption{Final test accuracy by learning rate.}
+    \label{tab:lr}
+    \begin{tabular}{lcc}
+        \toprule
+        Learning rate & Final accuracy & Epochs to 90\% \\
+        \midrule
+        0.1   & 88.1\% & never \\
+        0.01  & 92.4\% & 14 \\
+        0.001 & 90.7\% & 19 \\
+        \bottomrule
+    \end{tabular}
+\end{table}`},
+  { title:'Conclusion and references',
+    body:String.raw`Finish it: <code>\section{Conclusion}</code> with a sentence or two, then <code>\bibliographystyle{plain}</code> and <code>\bibliography{references}</code>. When the log shows zero warnings, your paper is complete.`,
+    check:function(src,res){
+      if(!res) return fail('It has to compile first. Read the log.');
+      if(!/\\section\{\s*Conclusion\s*\}/.test(src)) return fail('Add \\section{Conclusion}.');
+      if(!/\\bibliographystyle\{[^}]+\}/.test(src)) return fail('Add \\bibliographystyle{plain}.');
+      if(!/\\bibliography\{\s*references\s*\}/.test(src)) return fail('Add \\bibliography{references}.');
+      if(res.warnings.length>0) return fail('Zero warnings allowed for a finished paper. The log says: '+res.warnings[0]);
+      if(textOf(res.html).indexOf('References')===-1) return fail('The reference list did not render.');
+      return ok();
+    },
+    solution:String.raw`\section{Conclusion}
+A learning rate of 0.01 reached the highest accuracy with the
+fewest epochs. Both extremes lost, one to instability and one
+to slowness.
+
+\bibliographystyle{plain}
+\bibliography{references}`}
+]};
+
+/* ---------------- anatomy widget data ---------------- */
+var ANAT_PARTS=[
+ {key:'title', label:'Title block', note:'Title, authors, affiliation. Generated by \\maketitle from preamble commands.',
+  code:String.raw`\title{The Effect of Learning Rate\\ on Test Accuracy}
+\author{D. Puri \and A. Student}
+\date{\today}
+...
+\maketitle`},
+ {key:'abstract', label:'Abstract', note:'A five-sentence sales pitch of the whole paper. Its own environment, typeset narrower than body text.',
+  code:String.raw`\begin{abstract}
+We train a small classifier at three
+learning rates and report accuracy.
+\end{abstract}`},
+ {key:'section', label:'Section headings', note:'Numbered automatically. \\section, \\subsection, and the table of contents all come from these.',
+  code:String.raw`\section{Introduction}
+\section{Method}
+\subsection{Dataset}`},
+ {key:'equation', label:'Numbered equation', note:'The equation environment numbers it, \\label lets you point at it from anywhere.',
+  code:String.raw`\begin{equation}
+  \theta_{t+1} = \theta_t
+    - \eta \, \nabla L(\theta_t)
+  \label{eq:sgd}
+\end{equation}`},
+ {key:'figure', label:'Figure with caption', note:'The figure float wraps the image, numbers the caption, and lets the text reference it.',
+  code:String.raw`\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{accuracy.png}
+  \caption{Accuracy over training.}
+  \label{fig:acc}
+\end{figure}`},
+ {key:'table', label:'Booktabs table', note:'Three rules, no vertical bars, caption above. The uniform of every published table.',
+  code:String.raw`\begin{table}[h]
+  \centering
+  \caption{Accuracy by rate.}
+  \label{tab:lr}
+  \begin{tabular}{lc}
+    \toprule
+    Rate & Acc. \\
+    \midrule
+    0.01 & 92.4\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}`},
+ {key:'cite', label:'Citation', note:'\\cite drops a numbered marker and adds the source to the reference list automatically.',
+  code:String.raw`...build on the transformer
+architecture \cite{vaswani2017attention}.`},
+ {key:'refs', label:'References', note:'Generated, never typed. BibTeX reads your .bib file and formats every cited entry.',
+  code:String.raw`\bibliographystyle{plain}
+\bibliography{references}`}
+];
+</script>
+
+<script>
+'use strict';
+/* =====================================================================
+   Script part 3. The app: navigation, exercise wiring, widgets,
+   cheat sheet, progress, theme, confetti.
+   ===================================================================== */
+
+/* ---------------- progress ---------------- */
+var PROG={};
+try{ PROG=JSON.parse(localStorage.getItem('latexlab-progress')||'{}'); }catch(e){ PROG={}; }
+function saveProg(){ try{ localStorage.setItem('latexlab-progress', JSON.stringify(PROG)); }catch(e){} }
+function saveCode(id, code){ try{ localStorage.setItem('latexlab-code-'+id, code); }catch(e){} }
+function loadCode(id){ try{ return localStorage.getItem('latexlab-code-'+id); }catch(e){ return null; } }
+
+function lessonItems(lesson){
+  var ids=[];
+  lesson.blocks.forEach(function(b){
+    if(b.type==='exercise') ids.push(b.ex.id);
+    else if(b.type==='quiz') ids.push(b.quiz.id);
+    else if(b.type==='widget'){
+      if(b.name==='capstone'){ for(var i=0;i<CAPSTONE.steps.length;i++) ids.push('cap-'+i); }
+      else ids.push('w-'+b.name);
+    }
+  });
+  return ids;
+}
+var ALL_ITEMS=[];
+LESSONS.forEach(function(L){ ALL_ITEMS=ALL_ITEMS.concat(lessonItems(L)); });
+
+function updateProgressUI(){
+  var done=ALL_ITEMS.filter(function(id){ return PROG[id]; }).length;
+  var el=document.getElementById('progFill');
+  if(el) el.style.width=(ALL_ITEMS.length? (100*done/ALL_ITEMS.length) : 0)+'%';
+  var lab=document.getElementById('progLabel');
+  if(lab) lab.textContent=done+' / '+ALL_ITEMS.length;
+  document.querySelectorAll('#sideNav a.lesson-link').forEach(function(a){
+    var L=LESSONS.filter(function(x){return x.id===a.dataset.lesson;})[0];
+    if(!L) return;
+    var ids=lessonItems(L);
+    var d=ids.filter(function(id){return PROG[id];}).length;
+    var dots=a.querySelector('.ldots');
+    if(dots) dots.textContent=ids.length? (d+'/'+ids.length) : '';
+    a.classList.toggle('all-done', ids.length>0 && d===ids.length);
+  });
+}
+function markDone(id, bigParty){
+  var was=PROG[id];
+  PROG[id]=true; saveProg(); updateProgressUI();
+  if(!was) confettiBurst(bigParty?180:60);
+}
+
+/* ---------------- confetti ---------------- */
+var confParticles=[], confRunning=false;
+function confettiBurst(n){
+  var cv=document.getElementById('confettiCanvas');
+  if(!cv) return;
+  cv.width=innerWidth; cv.height=innerHeight;
+  var colors=['#2a78d6','#1baf7a','#eda100','#e87ba4','#eb6834','#4a3aa7'];
+  for(var i=0;i<n;i++){
+    confParticles.push({x:innerWidth/2+(Math.random()-0.5)*260, y:innerHeight*0.32,
+      vx:(Math.random()-0.5)*9, vy:-Math.random()*8-3, g:0.22+Math.random()*0.1,
+      s:5+Math.random()*6, r:Math.random()*Math.PI, vr:(Math.random()-0.5)*0.3,
+      c:colors[i%colors.length], life:110+Math.random()*40});
+  }
+  if(!confRunning){ confRunning=true; requestAnimationFrame(confTick); }
+}
+function confTick(){
+  var cv=document.getElementById('confettiCanvas'), ctx=cv.getContext('2d');
+  ctx.clearRect(0,0,cv.width,cv.height);
+  confParticles=confParticles.filter(function(p){ return p.life>0 && p.y<cv.height+30; });
+  confParticles.forEach(function(p){
+    p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.r+=p.vr; p.life--;
+    ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+    ctx.fillStyle=p.c; ctx.globalAlpha=Math.max(0,Math.min(1,p.life/40));
+    ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.62); ctx.restore();
+  });
+  if(confParticles.length){ requestAnimationFrame(confTick); }
+  else { confRunning=false; ctx.clearRect(0,0,cv.width,cv.height); }
+}
+
+/* ---------------- shared UI helpers ---------------- */
+var PRAISE=['Compiled and correct.','Clean. Next one.','Exactly right.','Overleaf would be proud.','Perfect. Keep going.','Correct, and on the first read of the log too.'];
+function praise(){ return PRAISE[Math.floor(Math.random()*PRAISE.length)]; }
+
+function el(tag, cls, html){
+  var e=document.createElement(tag);
+  if(cls) e.className=cls;
+  if(html!==undefined) e.innerHTML=html;
+  return e;
+}
+function copyText(txt, btn){
+  function done(){ if(btn){ var o=btn.textContent; btn.textContent='Copied'; setTimeout(function(){btn.textContent=o;},1200); } }
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,done); }
+  else{ var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); done(); }
+}
+function tryKatex(tex, display){
+  if(typeof katex==='undefined') return '<code>'+escHtml(tex)+'</code>';
+  try{ return katex.renderToString(tex,{displayMode:!!display,throwOnError:true,strict:false}); }
+  catch(e){ return null; }
+}
+function showLog(logEl, res, err){
+  if(err){
+    logEl.className='compilelog err';
+    var ln=(err.line!==undefined&&err.line!==null)?(' (around line '+err.line+' of your code)'):'';
+    logEl.innerHTML='! '+escHtml(err.message)+ln+(err.tip?'<span class="tip">Translation: '+escHtml(err.tip)+'</span>':'');
+    return;
+  }
+  if(res && res.warnings && res.warnings.length){
+    logEl.className='compilelog warn';
+    logEl.innerHTML='Compiled with '+res.warnings.length+' warning'+(res.warnings.length>1?'s':'')+'.\n'+
+      res.warnings.map(function(w){return 'LaTeX Warning: '+escHtml(w);}).join('\n');
+    return;
+  }
+  logEl.className='compilelog ok';
+  logEl.textContent='Compilation successful. 0 errors, 0 warnings.';
+}
+
+/* ---------------- exercise renderer ---------------- */
+function renderExercise(container, ex){
+  var card=el('section','exercise'+(PROG[ex.id]?' done':''));
+  card.id=ex.id;
+  var head=el('div','ex-head');
+  head.appendChild(el('span','ex-badge',escHtml(ex.badge)));
+  head.appendChild(el('h4','',ex.title));
+  head.appendChild(el('span','done-mark','&#10003; Done'));
+  card.appendChild(head);
+
+  var body=el('div','ex-body');
+  body.appendChild(el('p','ex-prompt',ex.prompt));
+
+  /* target panel */
+  if(ex.mode==='math' && ex.target){
+    var tp=el('div','target-panel');
+    tp.appendChild(el('span','tlabel','Target. Make your preview match this'));
+    var tr=el('div','target-render', tryKatex(ex.target,true)||('<code>'+escHtml(ex.target)+'</code>'));
+    tp.appendChild(tr);
+    body.appendChild(tp);
+  }
+  if(ex.targetFrag){
+    var tp2=el('div','target-panel');
+    tp2.appendChild(el('span','tlabel','Target output'));
+    var box=el('div','pdfpage'); box.style.maxWidth='560px';
+    try{ box.innerHTML=compileLatex(ex.targetFrag,{fragment:true}).html; }catch(e){ box.textContent='(target failed to render)'; }
+    tp2.appendChild(box);
+    body.appendChild(tp2);
+  }
+
+  var work=el('div','ex-work'+(ex.mode==='math'?' ':''));
+  /* editor pane */
+  var edPane=el('div','pane');
+  var edHead=el('div','pane-head','<span>'+(ex.mode==='math'?'Your LaTeX (math only, no $ needed)':'Your LaTeX')+'</span><span class="spacer"></span>');
+  var resetBtn=el('button','','Reset');
+  resetBtn.addEventListener('click',function(){ ta.value=ex.starter||''; saveCode(ex.id,ta.value); recompile(); });
+  edHead.appendChild(resetBtn);
+  edPane.appendChild(edHead);
+  var ta=document.createElement('textarea');
+  ta.className='ed'+(ex.mode==='math'?' short':'');
+  ta.spellcheck=false;
+  ta.value=loadCode(ex.id)!==null?loadCode(ex.id):(ex.starter||'');
+  edPane.appendChild(ta);
+  work.appendChild(edPane);
+
+  /* preview pane */
+  var pvPane=el('div','pane');
+  pvPane.appendChild(el('div','pane-head','<span>'+(ex.mode==='math'?'Preview':'Compiled preview')+'</span>'));
+  var scroll=el('div','preview-scroll');
+  var page=el('div', ex.mode==='math'?'math-preview':'pdfpage');
+  scroll.appendChild(page);
+  pvPane.appendChild(scroll);
+  var log=el('div','compilelog ok'); log.textContent='Ready.';
+  pvPane.appendChild(log);
+  work.appendChild(pvPane);
+  body.appendChild(work);
+
+  /* bib panel for the citation lesson */
+  if(ex.bibPanel){
+    var bp=el('div','target-panel');
+    bp.appendChild(el('span','tlabel','references.bib (read only, already in the project)'));
+    bp.appendChild(el('pre','codeblock',escHtml(BIB_SOURCE)));
+    body.appendChild(bp);
+  }
+
+  /* actions */
+  var actions=el('div','ex-actions');
+  var checkBtn=el('button','btn primary','Check my answer');
+  var hintBtn=el('button','btn ghost','Hint');
+  var solBtn=el('button','btn ghost','Show solution');
+  var fb=el('span','feedback','');
+  actions.appendChild(checkBtn); actions.appendChild(hintBtn); actions.appendChild(solBtn); actions.appendChild(fb);
+  body.appendChild(actions);
+
+  var hintBox=el('div','hintbox');
+  body.appendChild(hintBox);
+  var hintIdx=0;
+  hintBtn.addEventListener('click',function(){
+    var hints=ex.hints||[];
+    if(!hints.length) return;
+    hintBox.classList.add('show');
+    hintBox.innerHTML=hints.slice(0,hintIdx+1).map(function(h,i){return '<div><b>Hint '+(i+1)+'.</b> '+escHtml(h)+'</div>';}).join('');
+    if(hintIdx<hints.length-1) hintIdx++;
+    else hintBtn.textContent='Hint (no more)';
+  });
+
+  var solBox=el('div','solutionbox');
+  var solPre=el('pre','codeblock',escHtml(ex.solution||''));
+  var solHead=el('div','sol-note','One honest way to do it. Type it rather than pasting, your fingers are doing the learning. ');
+  var solCopy=el('button','copy-mini','Copy');
+  solCopy.addEventListener('click',function(){ copyText(ex.solution||'',solCopy); });
+  solHead.appendChild(solCopy);
+  solBox.appendChild(solHead); solBox.appendChild(solPre);
+  if(ex.solNote) solBox.appendChild(el('div','sol-note',escHtml(ex.solNote)));
+  body.appendChild(solBox);
+  solBtn.addEventListener('click',function(){ solBox.classList.toggle('show'); });
+
+  /* live compile */
+  var timer=null;
+  function recompile(){
+    var v=ta.value;
+    if(ex.mode==='math'){
+      if(!v.trim()){ page.innerHTML='<span style="color:#999">type math to preview it</span>'; log.className='compilelog ok'; log.textContent='Ready.'; return; }
+      var h=tryKatex(v,true);
+      if(h!==null){ page.innerHTML=h; log.className='compilelog ok'; log.textContent='Rendered.'; }
+      else{
+        try{ if(typeof katex!=='undefined') katex.renderToString(v,{displayMode:true,throwOnError:true,strict:false}); }
+        catch(e){
+          page.innerHTML='<span style="color:#b3261e">&#9888; will not render</span>';
+          var msg=String(e&&e.message||'error').replace(/^KaTeX parse error:\s*/,'');
+          log.className='compilelog err'; log.textContent='! '+msg;
+        }
+      }
+      return;
+    }
+    try{
+      var res=compileLatex(v,{fragment:ex.mode==='fragment'});
+      page.innerHTML=res.html;
+      showLog(log,res,null);
+      card._lastRes=res; card._lastErr=null;
+    }catch(e){
+      showLog(log,null,e);
+      card._lastRes=null; card._lastErr=e;
+    }
+  }
+  ta.addEventListener('input',function(){
+    saveCode(ex.id,ta.value);
+    clearTimeout(timer); timer=setTimeout(recompile,350);
+  });
+  recompile();
+
+  checkBtn.addEventListener('click',function(){
+    var v=ta.value, r;
+    if(ex.mode==='math'){ r=ex.check(v); }
+    else{
+      var res=null;
+      try{ res=compileLatex(v,{fragment:ex.mode==='fragment'}); page.innerHTML=res.html; showLog(log,res,null); }
+      catch(e){ showLog(log,null,e); r=fail('It has to compile first. Read the log under the preview, the first error is the one that matters.'); }
+      if(res) r=ex.check(v,res);
+    }
+    if(r.ok){
+      fb.className='feedback good'; fb.textContent=praise();
+      card.classList.add('done');
+      markDone(ex.id);
+    }else{
+      fb.className='feedback bad'; fb.textContent=r.msg||'Not yet.';
+    }
+  });
+
+  container.appendChild(card);
+}
+
+/* ---------------- quiz renderer ---------------- */
+function renderQuiz(container, quiz){
+  var card=el('section','exercise quiz'+(PROG[quiz.id]?' done':''));
+  card.id=quiz.id;
+  var head=el('div','ex-head');
+  head.appendChild(el('span','ex-badge','Quick check'));
+  head.appendChild(el('h4','',quiz.q));
+  head.appendChild(el('span','done-mark','&#10003; Done'));
+  card.appendChild(head);
+  var body=el('div','ex-body');
+  var wrap=el('div','choices');
+  var explain=el('div','explain');
+  quiz.choices.forEach(function(ch){
+    var b=el('button','choice',ch.t);
+    b.addEventListener('click',function(){
+      if(ch.okc){
+        wrap.querySelectorAll('.choice').forEach(function(x){x.classList.remove('wrong');});
+        b.classList.add('correct');
+        explain.innerHTML=ch.why||'Correct.';
+        explain.classList.add('show');
+        card.classList.add('done');
+        markDone(quiz.id);
+      }else{
+        b.classList.add('wrong');
+        setTimeout(function(){b.classList.remove('wrong');},600);
+      }
+    });
+    wrap.appendChild(b);
+  });
+  body.appendChild(wrap); body.appendChild(explain);
+  card.appendChild(body);
+  container.appendChild(card);
+}
+
+/* ---------------- widget: anatomy of a paper ---------------- */
+function renderAnatomy(container){
+  var seen={};
+  try{ seen=JSON.parse(localStorage.getItem('latexlab-anat')||'{}'); }catch(e){}
+  var card=el('section','card');
+  card.innerHTML='<h3 style="margin-top:0">The eight organs of a paper</h3>'+
+    '<p class="prose" style="margin-top:0">Click a numbered pin on the paper, or a chip on the right. Visit all eight to complete this lesson.</p>';
+  var wrap=el('div','anatomy-wrap');
+
+  var paper=el('div','mini-paper');
+  paper.innerHTML=
+    '<div class="part-region" data-part="title"><button class="pin" data-part="title">1</button>'+
+    '<div class="mp-title">The Effect of Learning Rate on Test Accuracy</div>'+
+    '<div class="mp-auth">D. Puri &nbsp;&middot;&nbsp; A. Student &nbsp;&middot;&nbsp; July 2026</div></div>'+
+    '<div class="mp-cols">'+
+    '<div class="part-region" data-part="abstract"><button class="pin" data-part="abstract">2</button>'+
+    '<h5>Abstract</h5><div style="font-style:italic">We train a small classifier at three learning rates and measure test accuracy over twenty epochs. A rate of 0.01 reaches the highest accuracy in the fewest epochs.</div></div>'+
+    '<div class="part-region" data-part="section"><button class="pin" data-part="section">3</button>'+
+    '<h5>1&nbsp; Introduction</h5><div>Choosing a learning rate is the first decision in any training run. Too high and training diverges, too low and it crawls. We measure the effect directly.</div>'+
+    '<h5>2&nbsp; Method</h5></div>'+
+    '<div>We train with stochastic gradient descent, updating parameters by</div>'+
+    '<div class="part-region" data-part="equation"><button class="pin" data-part="equation">4</button>'+
+    '<div class="mp-eq">&theta;<sub>t+1</sub> = &theta;<sub>t</sub> &minus; &eta;&nabla;L(&theta;<sub>t</sub>) &nbsp;&nbsp;(1)</div></div>'+
+    '<div>where &eta; is the learning rate.</div>'+
+    '<h5>3&nbsp; Results</h5>'+
+    '<div class="part-region mp-fig" data-part="figure"><button class="pin" data-part="figure">5</button>'+
+    '<img alt="accuracy chart" src="'+IMAGES['accuracy.png']+'">'+
+    '<div class="mp-capt">Figure 1: Test accuracy over training.</div></div>'+
+    '<div class="part-region" data-part="table"><button class="pin" data-part="table">6</button>'+
+    '<div class="mp-capt">Table 1: Accuracy by learning rate.</div>'+
+    '<table><tr class="rule-t"><th>Rate</th><th>Acc.</th></tr><tr class="rule-m"><th></th><th></th></tr>'+
+    '<tr><td>0.1</td><td>88.1%</td></tr><tr><td>0.01</td><td>92.4%</td></tr>'+
+    '<tr class="rule-b"><td>0.001</td><td>90.7%</td></tr></table></div>'+
+    '<div class="part-region" data-part="cite"><button class="pin" data-part="cite">7</button>'+
+    '<div>Our setup follows the training recipes popularized by the transformer <b>[1]</b> and the broader deep learning literature <b>[2, 3]</b>.</div></div>'+
+    '<div class="part-region mp-refs" data-part="refs"><button class="pin" data-part="refs">8</button>'+
+    '<h5>References</h5>'+
+    '<div>[1] A. Vaswani et al., Attention is all you need, NeurIPS 2017.</div>'+
+    '<div>[2] Y. LeCun, Y. Bengio, G. Hinton, Deep learning, Nature, 2015.</div>'+
+    '<div>[3] I. Goodfellow et al., Deep Learning, MIT Press, 2016.</div></div>'+
+    '</div>';
+  wrap.appendChild(paper);
+
+  var side=el('div','anatomy-side');
+  var chips=el('div','anat-btns');
+  var detail=el('div','anat-detail','<b>Pick a part.</b> The LaTeX behind it appears here.');
+  ANAT_PARTS.forEach(function(p){
+    var b=el('button','anat-btn'+(seen[p.key]?' seen':''),p.label);
+    b.dataset.part=p.key;
+    chips.appendChild(b);
+  });
+  side.appendChild(chips); side.appendChild(detail);
+  wrap.appendChild(side);
+  card.appendChild(wrap);
+
+  function select(key){
+    var p=ANAT_PARTS.filter(function(x){return x.key===key;})[0];
+    if(!p) return;
+    seen[key]=true;
+    try{ localStorage.setItem('latexlab-anat',JSON.stringify(seen)); }catch(e){}
+    paper.querySelectorAll('.part-region').forEach(function(r){ r.classList.toggle('lit', r.dataset.part===key); });
+    paper.querySelectorAll('.pin').forEach(function(pin){ if(seen[pin.dataset.part]) pin.classList.add('seen'); });
+    chips.querySelectorAll('.anat-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.part===key);
+      if(seen[b.dataset.part]) b.classList.add('seen');
+    });
+    var n=ANAT_PARTS.filter(function(x){return seen[x.key];}).length;
+    detail.innerHTML='<b>'+escHtml(p.label)+'</b> &nbsp;<span style="color:var(--ink3);font-size:12px">'+n+' of 8 explored</span>'+
+      '<div style="margin-top:4px">'+escHtml(p.note)+'</div>'+
+      '<pre class="codeblock">'+escHtml(p.code)+'</pre>';
+    if(n===ANAT_PARTS.length && !PROG['w-anatomy']) markDone('w-anatomy');
+  }
+  card.addEventListener('click',function(e){
+    var t=e.target.closest('[data-part]');
+    if(t) select(t.dataset.part);
+  });
+  container.appendChild(card);
+}
+
+/* ---------------- widget: figure playground ---------------- */
+function renderFigPlay(container){
+  var card=el('section','card');
+  card.innerHTML='<h3 style="margin-top:0">The figure machine</h3>'+
+    '<p class="prose" style="margin-top:0">Turn the knobs, watch both the code and the compiled figure change. Steal the code when you like it.</p>';
+  var grid=el('div','playground');
+  var controls=el('div','pg-controls');
+  controls.innerHTML=
+    '<div><label class="pgl">Width: <span id="pgWidthLbl">0.7</span>\\textwidth</label>'+
+    '<input type="range" id="pgWidth" min="30" max="100" step="5" value="70"></div>'+
+    '<div><label class="pgl">Image</label><div class="radio-row">'+
+    '<label><input type="radio" name="pgImg" value="accuracy.png" checked> accuracy.png</label>'+
+    '<label><input type="radio" name="pgImg" value="setup.png"> setup.png</label></div></div>'+
+    '<div><label class="pgl">Placement hint</label><div class="radio-row">'+
+    '<label><input type="radio" name="pgPl" value="h" checked> [h] here</label>'+
+    '<label><input type="radio" name="pgPl" value="t"> [t] top of page</label>'+
+    '<label><input type="radio" name="pgPl" value="b"> [b] bottom</label></div></div>'+
+    '<div><label class="pgl">Caption</label><input type="text" id="pgCap" value="Test accuracy over training."></div>'+
+    '<div><label class="radio-row"><input type="checkbox" id="pgCenter" checked> \\centering</label></div>';
+  grid.appendChild(controls);
+
+  var out=el('div','pg-out');
+  var pre=el('pre','codeblock','');
+  var copyBtn=el('button','copy-mini','Copy');
+  var preWrap=el('div','', '');
+  preWrap.style.position='relative';
+  copyBtn.style.position='absolute'; copyBtn.style.top='8px'; copyBtn.style.right='8px'; copyBtn.style.zIndex='2';
+  preWrap.appendChild(copyBtn); preWrap.appendChild(pre);
+  out.appendChild(preWrap);
+  var scroll=el('div','preview-scroll');
+  var page=el('div','pdfpage');
+  scroll.appendChild(page);
+  out.appendChild(scroll);
+  grid.appendChild(out);
+  card.appendChild(grid);
+  container.appendChild(card);
+
+  var touches=0, currentCode='';
+  function gen(){
+    var w=(document.getElementById('pgWidth').value/100).toFixed(2).replace(/0+$/,'').replace(/\.$/,'');
+    document.getElementById('pgWidthLbl').textContent=w;
+    var img=card.querySelector('input[name="pgImg"]:checked').value;
+    var pl=card.querySelector('input[name="pgPl"]:checked').value;
+    var cap=document.getElementById('pgCap').value||'A caption.';
+    var cen=document.getElementById('pgCenter').checked;
+    var code='\\begin{figure}['+pl+']\n'+(cen?'    \\centering\n':'')+
+      '    \\includegraphics[width='+w+'\\textwidth]{'+img+'}\n'+
+      '    \\caption{'+cap+'}\n    \\label{fig:acc}\n\\end{figure}';
+    currentCode=code;
+    pre.textContent=code;
+    try{ page.innerHTML=compileLatex(code,{fragment:true}).html; }catch(e){ page.textContent='error: '+e.message; }
+  }
+  copyBtn.addEventListener('click',function(){ copyText(currentCode,copyBtn); });
+  card.addEventListener('input',function(){
+    gen();
+    touches++;
+    if(touches>=3 && !PROG['w-figplay']) markDone('w-figplay');
+  });
+  gen();
+}
+
+/* ---------------- widget: renumbering demo ---------------- */
+var REFDEMO_BASE = String.raw`\section{Introduction}
+We compare optimizers in Section \ref{sec:results}.
+
+\section{Background}
+Definitions and prior work live here.
+
+\section{Results}
+\label{sec:results}
+The update rule in Equation \ref{eq:sgd} converges fastest.
+\begin{equation}
+    \theta_{t+1} = \theta_t - \eta \, \nabla L(\theta_t)
+    \label{eq:sgd}
+\end{equation}`;
+var REFDEMO_EXTRA = String.raw`\section{Introduction}
+We compare optimizers in Section \ref{sec:results}.
+
+\section{Background}
+Definitions and prior work live here.
+
+\section{Ablation Study}
+Surprise! A whole new section, dropped in the middle.
+
+\section{Results}
+\label{sec:results}
+The update rule in Equation \ref{eq:sgd} converges fastest.
+\begin{equation}
+    \theta_{t+1} = \theta_t - \eta \, \nabla L(\theta_t)
+    \label{eq:sgd}
+\end{equation}`;
+
+function renderRefDemo(container){
+  var card=el('section','card');
+  card.innerHTML='<h3 style="margin-top:0">Watch the numbers heal themselves</h3>'+
+    '<p class="prose" style="margin-top:0">The Introduction points at the Results section by label, not by number. '+
+    'Drop a brand new section into the middle of the paper and watch every number, including the reference '+
+    'in the first sentence, update itself. This is why you never type section numbers by hand.</p>';
+  var btn=el('button','btn primary','Insert \\section{Ablation Study} in the middle');
+  var scroll=el('div','preview-scroll'); scroll.style.marginTop='14px';
+  scroll.style.border='1px solid var(--line)'; scroll.style.borderRadius='10px';
+  var page=el('div','pdfpage');
+  scroll.appendChild(page);
+  card.appendChild(btn); card.appendChild(scroll);
+  container.appendChild(card);
+  var inserted=false;
+  function draw(){
+    try{ page.innerHTML=compileLatex(inserted?REFDEMO_EXTRA:REFDEMO_BASE,{fragment:true}).html; }
+    catch(e){ page.textContent='error: '+e.message; }
+  }
+  btn.addEventListener('click',function(){
+    inserted=!inserted;
+    btn.textContent=inserted?'Take the new section back out':'Insert \\section{Ablation Study} in the middle';
+    btn.className=inserted?'btn ghost':'btn primary';
+    draw();
+    if(!PROG['w-refdemo']) markDone('w-refdemo');
+  });
+  draw();
+}
+
+/* ---------------- widget: capstone ---------------- */
+function renderCapstone(container){
+  var layout=el('div','cap-layout');
+  var stepsCol=el('div','cap-steps');
+  var active=0;
+  for(var i=0;i<CAPSTONE.steps.length;i++){ if(PROG['cap-'+i]) active=Math.min(i+1,CAPSTONE.steps.length-1); }
+
+  var stepEls=[];
+  CAPSTONE.steps.forEach(function(st,ix){
+    var s=el('div','cap-step'+(PROG['cap-'+ix]?' done':''));
+    s.innerHTML='<div class="cs-head"><span class="cs-num">'+(ix+1)+'</span><span>'+escHtml(st.title)+'</span></div>'+
+      '<div class="cs-body">'+st.body+
+      '<div style="margin-top:8px"><button class="btn primary cs-check">Check step '+(ix+1)+'</button> '+
+      '<button class="btn ghost cs-show">Show me</button></div>'+
+      '<div class="feedback cs-fb" style="display:block;margin-top:6px"></div>'+
+      '<pre class="codeblock cs-sol" style="display:none">'+escHtml(st.solution)+'</pre></div>';
+    s.querySelector('.cs-head').addEventListener('click',function(){ setActive(ix); });
+    s.querySelector('.cs-show').addEventListener('click',function(){
+      var p=s.querySelector('.cs-sol'); p.style.display=p.style.display==='none'?'block':'none';
+    });
+    s.querySelector('.cs-check').addEventListener('click',function(){ checkStep(ix); });
+    stepsCol.appendChild(s);
+    stepEls.push(s);
+  });
+
+  var final=el('div','cap-final');
+  final.innerHTML='<h3 style="margin-top:0">You wrote a research paper in LaTeX.</h3>'+
+    '<p>Title block, abstract, sections, a numbered equation, a real figure, a booktabs table, cross-references and a BibTeX reference list. That is the complete toolkit.</p>'+
+    '<p><b>Take it to the real world.</b> Download the source, make a project on <a href="https://www.overleaf.com" target="_blank" rel="noopener">Overleaf</a>, upload any chart image named <code>accuracy.png</code> plus a <code>references.bib</code>, paste this in, and press Recompile.</p>';
+  var dlBtn=el('button','btn primary','Download paper.tex');
+  var cpBtn=el('button','btn ghost','Copy full source');
+  final.appendChild(dlBtn); final.appendChild(document.createTextNode(' ')); final.appendChild(cpBtn);
+  stepsCol.appendChild(final);
+  layout.appendChild(stepsCol);
+
+  /* editor + preview */
+  var right=el('div','');
+  var work=el('div','ex-work stacked');
+  var edPane=el('div','pane');
+  var edHead=el('div','pane-head','<span>paper.tex</span><span class="spacer"></span>');
+  var resetBtn=el('button','','Reset');
+  edHead.appendChild(resetBtn);
+  edPane.appendChild(edHead);
+  var ta=document.createElement('textarea');
+  ta.className='ed'; ta.spellcheck=false; ta.style.minHeight='320px';
+  ta.value=loadCode('capstone')!==null?loadCode('capstone'):CAPSTONE.starter;
+  edPane.appendChild(ta);
+  work.appendChild(edPane);
+  var pvPane=el('div','pane');
+  pvPane.appendChild(el('div','pane-head','<span>Compiled preview</span>'));
+  var scroll=el('div','preview-scroll'); scroll.style.maxHeight='560px';
+  var page=el('div','pdfpage');
+  scroll.appendChild(page); pvPane.appendChild(scroll);
+  var log=el('div','compilelog ok'); log.textContent='Ready when you are.';
+  pvPane.appendChild(log);
+  work.appendChild(pvPane);
+  right.appendChild(work);
+  layout.appendChild(right);
+  container.appendChild(layout);
+
+  resetBtn.addEventListener('click',function(){
+    if(!confirm('Reset the capstone editor to the starter file? Your step progress stays.')) return;
+    ta.value=CAPSTONE.starter; saveCode('capstone',ta.value); recompile();
+  });
+
+  var timer=null;
+  function recompile(){
+    try{
+      var res=compileLatex(ta.value,{});
+      page.innerHTML=res.html;
+      showLog(log,res,null);
+      layout._res=res; layout._err=null;
+    }catch(e){
+      showLog(log,null,e);
+      layout._res=null; layout._err=e;
+    }
+  }
+  ta.addEventListener('input',function(){
+    saveCode('capstone',ta.value);
+    clearTimeout(timer); timer=setTimeout(recompile,400);
+  });
+  recompile();
+
+  function setActive(ix){
+    active=ix;
+    stepEls.forEach(function(s,i){ s.classList.toggle('active', i===ix); });
+  }
+  function checkStep(ix){
+    var res=null;
+    try{ res=compileLatex(ta.value,{}); page.innerHTML=res.html; showLog(log,res,null); }
+    catch(e){ showLog(log,null,e); }
+    var r=CAPSTONE.steps[ix].check(ta.value,res);
+    var fb=stepEls[ix].querySelector('.cs-fb');
+    if(r.ok){
+      fb.className='feedback good cs-fb'; fb.style.display='block'; fb.textContent=praise();
+      stepEls[ix].classList.add('done');
+      var allBefore=PROG;
+      markDone('cap-'+ix, ix===CAPSTONE.steps.length-1);
+      var allDone=CAPSTONE.steps.every(function(_,i){ return PROG['cap-'+i]; });
+      if(allDone){ final.classList.add('show'); confettiBurst(240); }
+      else if(ix<CAPSTONE.steps.length-1){ setActive(ix+1); }
+    }else{
+      fb.className='feedback bad cs-fb'; fb.style.display='block'; fb.textContent=r.msg;
+    }
+  }
+  var allDoneNow=CAPSTONE.steps.every(function(_,i){ return PROG['cap-'+i]; });
+  if(allDoneNow) final.classList.add('show');
+  setActive(active);
+
+  dlBtn.addEventListener('click',function(){
+    var blob=new Blob([ta.value],{type:'text/x-tex'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob); a.download='paper.tex';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+  });
+  cpBtn.addEventListener('click',function(){ copyText(ta.value,cpBtn); });
+}
+
+/* ---------------- lesson rendering & routing ---------------- */
+function renderLesson(id){
+  var L=LESSONS.filter(function(x){return x.id===id;})[0] || LESSONS[0];
+  var main=document.getElementById('main');
+  main.innerHTML='';
+  if(L.banner){
+    var b=el('div','part-banner');
+    b.innerHTML='<h2>'+escHtml(L.banner.title)+'</h2><p>'+escHtml(L.banner.text)+'</p>';
+    main.appendChild(b);
+  }
+  var head=el('div','lesson-head');
+  head.innerHTML='<div class="kicker">'+escHtml(L.kicker)+'</div>'+
+    '<h2>'+(L.num?('Lesson '+L.num+'. '):'')+L.title+'</h2>'+
+    '<p class="lede">'+L.lede+'</p>';
+  main.appendChild(head);
+
+  L.blocks.forEach(function(blk){
+    if(blk.type==='prose'){ var d=el('div',''); d.innerHTML=blk.html; main.appendChild(d); }
+    else if(blk.type==='exercise') renderExercise(main, blk.ex);
+    else if(blk.type==='quiz') renderQuiz(main, blk.quiz);
+    else if(blk.type==='widget'){
+      if(blk.name==='anatomy') renderAnatomy(main);
+      else if(blk.name==='figplay') renderFigPlay(main);
+      else if(blk.name==='refdemo') renderRefDemo(main);
+      else if(blk.name==='capstone') renderCapstone(main);
+    }
+  });
+
+  /* prev / next */
+  var ix=LESSONS.indexOf(L);
+  var nav=el('div','lesson-nav');
+  if(ix>0){
+    var p=el('a','btn ghost','&larr; '+LESSONS[ix-1].title);
+    p.href='#'+LESSONS[ix-1].id; nav.appendChild(p);
+  } else nav.appendChild(el('span',''));
+  if(ix<LESSONS.length-1){
+    var n=el('a','btn primary','Next: '+LESSONS[ix+1].title+' &rarr;');
+    n.href='#'+LESSONS[ix+1].id; n.style.textDecoration='none'; nav.appendChild(n);
+  }
+  main.appendChild(nav);
+
+  document.querySelectorAll('#sideNav a.lesson-link').forEach(function(a){
+    a.classList.toggle('active', a.dataset.lesson===L.id);
+  });
+  updateProgressUI();
+  window.scrollTo({top:0});
+}
+
+function buildNav(){
+  var nav=document.getElementById('sideNav');
+  nav.innerHTML='';
+  var lastPart=null;
+  LESSONS.forEach(function(L){
+    if(L.part!==lastPart){
+      lastPart=L.part;
+      var lbl=L.part===0?'Welcome':(L.part===1?'Part 1 · The language':'Part 2 · Write a paper');
+      nav.appendChild(el('div','part-label',lbl));
+    }
+    var a=el('a','lesson-link');
+    a.href='#'+L.id; a.dataset.lesson=L.id;
+    a.innerHTML='<span class="lnum">'+(L.num||'&#9733;')+'</span><span>'+L.title+'</span><span class="ldots"></span>';
+    nav.appendChild(a);
+  });
+}
+
+/* ---------------- cheat sheet drawer ---------------- */
+var CHEAT_MATH=[
+  ['x^2','x^2'],['a_{ij}','a_{ij}'],['\\frac{a}{b}','\\frac{a}{b}'],['\\sqrt{x+y}','\\sqrt{x+y}'],
+  ['\\sqrt[3]{x}','\\sqrt[3]{x}'],['\\alpha, \\theta, \\pi','\\alpha, \\theta, \\pi'],
+  ['\\sum_{i=1}^{n} i','\\sum_{i=1}^{n} i'],['\\int_0^1 x\\,dx','\\int_0^1 x\\,dx'],
+  ['\\lim_{x \\to 0} f(x)','\\lim_{x \\to 0} f(x)'],['\\sin\\theta','\\sin\\theta']
+];
+function buildDrawer(){
+  var d=document.getElementById('drawer');
+  var mathRows=CHEAT_MATH.map(function(row){
+    var r=tryKatex(row[1],false);
+    return '<tr><td><code>$'+escHtml(row[0])+'$</code></td><td>'+(r||'')+'</td></tr>';
+  }).join('');
+  var figSnip='\\begin{figure}[h]\n    \\centering\n    \\includegraphics[width=0.7\\textwidth]{accuracy.png}\n    \\caption{...}\n    \\label{fig:name}\n\\end{figure}';
+  var tabSnip='\\begin{table}[h]\n    \\centering\n    \\caption{...}\n    \\label{tab:name}\n    \\begin{tabular}{lcc}\n        \\toprule\n        A & B & C \\\\\n        \\midrule\n        1 & 2 & 3 \\\\\n        \\bottomrule\n    \\end{tabular}\n\\end{table}';
+  d.innerHTML='<h3>Cheat sheet</h3><div style="color:var(--ink3);font-size:13px">Everything from the course on one panel.</div>'+
+    '<h4>Math mode</h4><table>'+mathRows+'</table>'+
+    '<h4>Everyday commands</h4><table>'+
+    '<tr><td><code>\\section{...}</code></td><td>numbered heading</td></tr>'+
+    '<tr><td><code>\\textbf{...}</code> <code>\\textit{...}</code></td><td>bold, italics</td></tr>'+
+    '<tr><td><code>itemize / enumerate</code></td><td>bullet and numbered lists</td></tr>'+
+    '<tr><td><code>\\label{...}</code> + <code>\\ref{...}</code></td><td>numbers that fix themselves</td></tr>'+
+    '<tr><td><code>\\cite{...}</code></td><td>citation via BibTeX</td></tr>'+
+    '<tr><td><code>\\tableofcontents</code></td><td>builds itself, compile twice</td></tr>'+
+    '<tr><td><code>\\% \\&amp; \\_ \\$ \\#</code></td><td>print the special characters</td></tr>'+
+    '<tr><td><code>\\LaTeX{}</code></td><td>the logo (braces stop it eating the next space)</td></tr>'+
+    '</table>'+
+    '<h4>The three classic errors</h4><table>'+
+    '<tr><td><code>Undefined control sequence</code></td><td>misspelled command</td></tr>'+
+    '<tr><td><code>Missing $ inserted</code></td><td>math outside math mode</td></tr>'+
+    '<tr><td><code>\\begin ended by \\end</code></td><td>mismatched environment</td></tr>'+
+    '</table>'+
+    '<h4>Figure block <button class="copy-mini" id="cpFig">Copy</button></h4><pre>'+escHtml(figSnip)+'</pre>'+
+    '<h4>Booktabs table <button class="copy-mini" id="cpTab">Copy</button></h4><pre>'+escHtml(tabSnip)+'</pre>'+
+    '<div style="margin-top:16px;font-size:12.5px;color:var(--ink3)">LaTeX Practice Lab &middot; created by Danish Puri</div>';
+  document.getElementById('cpFig').addEventListener('click',function(){ copyText(figSnip,this); });
+  document.getElementById('cpTab').addEventListener('click',function(){ copyText(tabSnip,this); });
+}
+
+/* ---------------- theme ---------------- */
+function applyTheme(t){
+  if(t==='light'||t==='dark') document.documentElement.setAttribute('data-theme',t);
+  else document.documentElement.removeAttribute('data-theme');
+}
+function initTheme(){
+  var t=null;
+  try{ t=localStorage.getItem('latexlab-theme'); }catch(e){}
+  applyTheme(t);
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var cur=null;
+    try{ cur=localStorage.getItem('latexlab-theme'); }catch(e){}
+    var next=cur==='dark'?'light':(cur==='light'?null:'dark');
+    try{ if(next) localStorage.setItem('latexlab-theme',next); else localStorage.removeItem('latexlab-theme'); }catch(e){}
+    applyTheme(next);
+  });
+}
+
+/* ---------------- init ---------------- */
+function initApp(){
+  if(typeof katex==='undefined'){
+    var w=document.getElementById('katexWarn');
+    if(w) w.classList.add('show');
+  }
+  buildNav();
+  buildDrawer();
+  initTheme();
+  var start=(location.hash||'#l0').slice(1);
+  renderLesson(start);
+  window.addEventListener('hashchange',function(){ renderLesson(location.hash.slice(1)); });
+
+  var btn=document.getElementById('cheatsBtn'), back=document.getElementById('drawerBack'), dr=document.getElementById('drawer');
+  btn.addEventListener('click',function(){ dr.classList.add('show'); back.classList.add('show'); });
+  back.addEventListener('click',function(){ dr.classList.remove('show'); back.classList.remove('show'); });
+
+  document.getElementById('resetProgress').addEventListener('click',function(){
+    if(!confirm('Wipe all progress and saved code on this page?')) return;
+    try{
+      Object.keys(localStorage).forEach(function(k){ if(k.indexOf('latexlab-')===0) localStorage.removeItem(k); });
+    }catch(e){}
+    PROG={};
+    location.reload();
+  });
+  updateProgressUI();
+}
+if(typeof document!=='undefined'){
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', initApp);
+  else initApp();
+}
+</script>
+</body>
+</html>
