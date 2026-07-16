@@ -1,0 +1,182 @@
+% Handout for my guest lecture on LaTeX
+% B.Tech in Artificial Intelligence
+% Global College of Social Science & Technology, Kathmandu
+% Compiles with pdflatex, locally or on Overleaf.
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1.4cm,top=1.0cm,bottom=0.9cm]{geometry}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{qrcode}
+
+\setlength{\parskip}{4pt plus 1pt}
+
+\definecolor{accent}{HTML}{1F6FB2}
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent}
+
+\pagestyle{empty}
+\setlength{\columnsep}{0.9cm}
+
+% TODO set the real lecture date before printing
+\newcommand{\lecturedate}{\today}
+
+% lrbox lets verbatim text live inside a colorbox
+\newsavebox{\codesample}
+
+% Compact colored heading, so the handout fits on one page
+\newcommand{\heading}[1]{%
+  \vspace{0.3em}
+  \noindent{\color{accent}\large\bfseries #1}\par
+  \nopagebreak
+  \vspace{-0.55em}\noindent{\color{accent}\rule{\linewidth}{0.8pt}}\par
+  \vspace{0.1em}
+}
+
+\begin{document}
+
+% ---------- Title block with QR code ----------
+\noindent
+\begin{minipage}[c]{0.70\textwidth}
+  {\huge\bfseries Introduction to \LaTeX}\\[5pt]
+  {\large Write documents like a scientist}\\[8pt]
+  Guest lecture for B.Tech in Artificial Intelligence\\
+  Global College of Social Science \& Technology, Kathmandu\\[3pt]
+  Danish Puri \quad $\cdot$ \quad \lecturedate
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.26\textwidth}
+  \centering
+  \qrcode[nolinks,height=2.5cm]{https://github.com/danish-puri/LaTeX}\\[5pt]
+  {\small Slides, notes, exercises}\\
+  {\small\url{github.com/danish-puri/LaTeX}}
+\end{minipage}
+
+\vspace{0.3em}
+\noindent{\color{accent}\rule{\textwidth}{1.2pt}}
+
+\begin{multicols}{2}
+
+\heading{Try it in five minutes}
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \item Go to \url{overleaf.com} and register. The free account is all you need.
+  \item Click \textbf{New Project}, then \textbf{Blank Project}.
+  \item Replace the body with the skeleton below.
+  \item Press \textbf{Recompile} (Ctrl+Enter, or Cmd+Enter on a Mac).
+  \item The PDF appears on the right. Edit, recompile, repeat. That loop is the whole workflow.
+\end{enumerate}
+
+\begin{lrbox}{\codesample}
+\begin{minipage}{0.95\linewidth}
+\begin{verbatim}
+\documentclass{article}
+\begin{document}
+Hello, \LaTeX! Math sits right
+in a sentence, $e^{i\pi}+1=0$.
+\end{document}
+\end{verbatim}
+\end{minipage}
+\end{lrbox}
+\noindent\colorbox{accent!8}{\usebox{\codesample}}
+
+Watch out. The characters \verb|% & _ # $| have special jobs. To print one, escape it, so \verb|\%| \verb|\&| \verb|\_| \verb|\#| \verb|\$|. A bare \verb|%| starts a comment. \LaTeX{} ignores the rest of that line, which is also how you leave notes to yourself.
+
+\heading{Math mode essentials}
+Wrap math in \verb|$...$| inside a sentence, or in \verb|\[...\]| to give it its own line.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Type this} & \textbf{Get this} \\
+\midrule
+\verb|$x^2$| & $x^2$ \\
+\verb|$a_{ij}$| & $a_{ij}$ \\
+\verb|$\frac{a}{b}$| & $\frac{a}{b}$ \\
+\verb|$\sqrt{x+y}$| & $\sqrt{x+y}$ \\
+\verb|$\alpha, \theta, \pi$| & $\alpha, \theta, \pi$ \\
+\verb|$\sum_{i=1}^{n} i$| & $\sum_{i=1}^{n} i$ \\
+\verb|$\int_0^1 x \, dx$| & $\int_0^1 x \, dx$ \\
+\verb|$\lim_{x \to 0} f(x)$| & $\lim_{x \to 0} f(x)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{-0.4em}
+{\small The \verb|\,| in the integral row is a thin space.}
+
+You already know enough to typeset real machine learning. Gradient descent is one line.
+\[\theta_{t+1} = \theta_t - \eta \, \nabla L(\theta_t)\]
+So is softmax.
+\[\mathrm{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}\]
+
+\vfill\columnbreak
+
+\heading{Everyday commands}
+\begin{center}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Command} & \textbf{What it does} \\
+\midrule
+\verb|\usepackage{...}| & loads an add-on package \\
+\verb|\section{...}| & numbered heading \\
+\verb|\textbf{...}| & \textbf{bold} \\
+\verb|\textit{...}| & \textit{italics} \\
+\verb|itemize| env & bullet list \\
+\verb|enumerate| env & numbered list \\
+\verb|\includegraphics| & insert an image (needs \verb|graphicx|) \\
+\verb|\label| + \verb|\ref| & numbers that fix themselves \\
+\verb|\tableofcontents| & builds itself \\
+\verb|\cite{...}| & citations via BibTeX \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\heading{When it breaks}
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \item It will break. That is normal, not a sign you are bad at this.
+  \item Read the \textbf{first} error in the log, not the last. Errors cascade. The line number points at or just after the real problem.
+  \item Compile often. Then the bug is always in the last thing you typed.
+\end{itemize}
+
+The three errors you will meet first, translated.
+
+\begin{center}
+\footnotesize
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{The log says} & \textbf{It means} \\
+\midrule
+\verb|Undefined control sequence| & misspelled command \\
+\verb|Missing $ inserted| & math outside \verb|$...$| \\
+\verb|\begin{...} ended by \end{...}| & mismatched environment \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\heading{Your challenge}
+Pick one page of any course handout, lab report, or your own notes, and rebuild it in \LaTeX{}. The tables on this page cover everything you need. Stuck on something? Open an issue on the repo and I will answer.
+
+\heading{Keep learning}
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \item Scan the QR code above. The repo has my slides, lecture notes, homework, and a cheat sheet.
+  \item \url{overleaf.com/learn} has the best free tutorials.
+  \item Need a full paper, thesis, or resume? Never start from scratch. Steal a template from \href{https://www.overleaf.com/gallery}{the Overleaf gallery}.
+  \item AI assistants write decent \LaTeX{}. Let them type, but read what they produce and fix it. You are the editor.
+\end{itemize}
+
+\end{multicols}
+
+\noindent{\color{accent}\rule{\textwidth}{0.8pt}}\\
+{\small I wrote this handout in \LaTeX{}. The source file is in the repo, so once you can read it, you can rebuild this page yourself.}
+
+\end{document}
