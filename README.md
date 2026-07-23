@@ -3,7 +3,9 @@
 
 <img width="2816" height="1536" alt="learnLaTeX" src="https://github.com/user-attachments/assets/133df73f-ddcc-49c9-9a48-5cc2560f9643" />
 
+<a href="https://danish-puri.github.io/LaTeX/practice">Practice Here</a>
 
+ 
 I will use this repository to hold the class materials for my introductory LaTeX course. It includes the slides, notes, exercises, and reference files used in the course. You may download the whole repository as a ZIP file.
 
 ## What Is LaTeX?
